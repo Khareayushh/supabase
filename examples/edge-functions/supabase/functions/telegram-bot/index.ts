@@ -2,9 +2,11 @@
 // https://deno.land/manual/getting_started/setup_your_environment
 // This enables autocomplete, go to definition, etc.
 
+import { serve } from 'std/server'
+
 console.log(`Function "telegram-bot" up and running!`)
 
-import { Bot, webhookCallback } from 'https://deno.land/x/grammy@v1.8.3/mod.ts'
+import { Bot, webhookCallback } from 'grammy'
 
 const bot = new Bot(Deno.env.get('TELEGRAM_BOT_TOKEN') || '')
 
@@ -14,12 +16,11 @@ bot.command('ping', (ctx) => ctx.reply(`Pong! ${new Date()} ${Date.now()}`))
 
 const handleUpdate = webhookCallback(bot, 'std/http')
 
-Deno.serve(async (req) => {
+serve(async (req) => {
   try {
     const url = new URL(req.url)
-    if (url.searchParams.get('secret') !== Deno.env.get('FUNCTION_SECRET')) {
+    if (url.searchParams.get('secret') !== Deno.env.get('FUNCTION_SECRET'))
       return new Response('not allowed', { status: 405 })
-    }
 
     return await handleUpdate(req)
   } catch (err) {

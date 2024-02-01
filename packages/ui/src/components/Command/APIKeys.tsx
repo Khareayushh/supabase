@@ -1,4 +1,4 @@
-import { CommandGroup } from 'cmdk'
+import { CommandGroup } from 'cmdk-supabase'
 import { useCommandMenu } from './CommandMenuProvider'
 import { Badge } from '../Badge'
 import { CommandItem, copyToClipboard } from './Command.utils'
@@ -39,10 +39,10 @@ const APIKeys = ({ isSubItem = false }) => {
       )}
       {apiKeys?.anon === undefined && apiKeys?.service === undefined && (
         <CommandItem type="link" className="items-start">
-          <IconAlertCircle strokeWidth={1.5} className="text-foreground-light" />
+          <IconAlertCircle strokeWidth={1.5} className="text-scale-1100" />
           <div>
             <p>No API keys available</p>
-            <p className="text-foreground-lighter">
+            <p className="text-scale-1000">
               You may not have the necessary permissions to view the project's API keys
             </p>
           </div>

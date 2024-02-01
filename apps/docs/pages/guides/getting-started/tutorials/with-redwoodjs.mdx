@@ -10,9 +10,8 @@ export const meta = {
 ![Supabase User Management example](/docs/img/user-management-demo.png)
 
 <Admonition type="note">
-
-If you get stuck while working through this guide, refer to the [full example on GitHub](https://github.com/redwoodjs/redwoodjs-supabase-quickstart).
-
+  If you get stuck while working through this guide, refer to the [full example on
+  GitHub](https://github.com/redwoodjs/redwoodjs-supabase-quickstart).
 </Admonition>
 
 ## About RedwoodJS
@@ -157,9 +156,7 @@ const App = () => (
 export default App
 ```
 
-### App Styling (Optional)
-
-An optional step is to update the CSS file `web/src/index.css` to make the app look nice.
+And one optional step is to update the CSS file `web/src/index.css` to make the app look nice.
 You can find the full contents of this file [here](https://raw.githubusercontent.com/supabase/supabase/master/examples/user-management/react-user-management/src/index.css).
 
 ### Start RedwoodJS and your first Page
@@ -171,9 +168,7 @@ yarn rw dev
 ```
 
 <Admonition type="note">
-
-`rw` is an alias for `redwood`, as in `yarn rw` to run Redwood CLI commands.
-
+  `rw` is an alias for `redwood`, as in `yarn rw` to run Redwood CLI commands.
 </Admonition>
 
 You should see a "Welcome to RedwoodJS" page and a message about not having any pages yet.
@@ -325,7 +320,7 @@ const Account = () => {
       setLoading(true)
       const user = supabase.auth.user()
 
-      const { data, error, status } = await supabase
+      let { data, error, status } = await supabase
         .from('profiles')
         .select(`username, website, avatar_url`)
         .eq('id', user.id)
@@ -360,7 +355,7 @@ const Account = () => {
         updated_at: new Date(),
       }
 
-      const { error } = await supabase.from('profiles').upsert(updates, {
+      let { error } = await supabase.from('profiles').upsert(updates, {
         returning: 'minimal', // Don't return the value after inserting
       })
 
@@ -530,7 +525,7 @@ const Avatar = ({ url, size, onUpload }) => {
       const fileName = `${Math.random()}.${fileExt}`
       const filePath = `${fileName}`
 
-      const { error: uploadError } = await supabase.storage.from('avatars').upload(filePath, file)
+      let { error: uploadError } = await supabase.storage.from('avatars').upload(filePath, file)
 
       if (uploadError) {
         throw uploadError

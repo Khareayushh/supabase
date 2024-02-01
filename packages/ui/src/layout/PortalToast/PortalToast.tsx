@@ -20,7 +20,6 @@ const PortalToast = () => (
           paddingLeft: '16px',
           paddingRight: '16px',
           fontSize: '0.875rem',
-          opacity: '1',
         },
         error: {
           duration: 8000,

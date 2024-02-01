@@ -1,5 +1,4 @@
 {
-  "$schema": "https://turbo.build/schema.json",
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],
@@ -52,9 +51,6 @@
     },
     "test": {
       "cache": false
-    },
-    "typecheck": {
-      "outputs": ["**/node_modules/.cache/tsbuildinfo.json"]
     }
   }
 }

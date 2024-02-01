@@ -2,10 +2,10 @@
 
 /**
  * Usage:
- *    tsx ReferenceGenerator.ts -o {output_dir} {input}.yml
+ *    ts-node ReferenceGenerator.ts -o {output_dir} {input}.yml
  *
  * Example:
- *    tsx ReferenceGenerator.ts -o docs/client spec/supabase.yml
+ *    ts-node ReferenceGenerator.ts -o docs/client spec/supabase.yml
  */
 
 import Example from './legacy/components/Example'

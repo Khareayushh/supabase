@@ -2,13 +2,14 @@
 // https://deno.land/manual/getting_started/setup_your_environment
 // This enables autocomplete, go to definition, etc.
 
-import { SmtpClient } from 'https://deno.land/x/denomailer@0.12.0/mod.ts'
+import { serve } from 'std/server'
+import { SmtpClient } from 'denomailer'
 
 const smtp = new SmtpClient()
 
 console.log(`Function "send-email-smtp" up and running!`)
 
-Deno.serve(async (_req) => {
+serve(async (_req) => {
   await smtp.connect({
     hostname: Deno.env.get('SMTP_HOSTNAME')!,
     port: Number(Deno.env.get('SMTP_PORT')!),

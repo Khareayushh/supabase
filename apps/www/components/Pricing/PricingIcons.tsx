@@ -23,7 +23,7 @@ export const IconPricingMinus = (props: any) => (
       width="18"
       height="18"
       fill="none"
-      className="text-border-control"
+      className="text-scale-700"
     >
       <path
         fill="currentColor"
@@ -39,7 +39,7 @@ export const IconPricingMinus = (props: any) => (
 export const IconPricingInfo = () => (
   <>
     <svg
-      className="text-muted -ml-0.5"
+      className="text-scale-900 -ml-0.5"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"

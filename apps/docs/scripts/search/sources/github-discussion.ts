@@ -2,7 +2,7 @@ import { createAppAuth } from '@octokit/auth-app'
 import { Octokit } from '@octokit/core'
 import { paginateGraphql } from '@octokit/plugin-paginate-graphql'
 import { createHash } from 'crypto'
-import { BaseLoader, BaseSource } from './base'
+import { BaseSource } from './base'
 
 export const ExtendedOctokit = Octokit.plugin(paginateGraphql)
 export type ExtendedOctokit = InstanceType<typeof ExtendedOctokit>
@@ -74,7 +74,7 @@ export async function fetchDiscussions(owner: string, repo: string, categoryId: 
   return discussions
 }
 
-export class GitHubDiscussionLoader extends BaseLoader {
+export class GitHubDiscussionSource extends BaseSource {
   type = 'github-discussions' as const
 
   constructor(source: string, public discussion: Discussion) {
@@ -82,18 +82,6 @@ export class GitHubDiscussionLoader extends BaseLoader {
   }
 
   async load() {
-    return [new GitHubDiscussionSource(this.source, this.path, this.discussion)]
-  }
-}
-
-export class GitHubDiscussionSource extends BaseSource {
-  type = 'github-discussions' as const
-
-  constructor(source: string, path: string, public discussion: Discussion) {
-    super(source, path)
-  }
-
-  process() {
     const { id, title, updatedAt, body, databaseId } = this.discussion
 
     const checksum = createHash('sha256').update(updatedAt).digest('base64')
@@ -127,10 +115,5 @@ export class GitHubDiscussionSource extends BaseSource {
       meta,
       sections,
     }
-  }
-
-  extractIndexedContent(): string {
-    const sections = this.sections ?? []
-    return sections.map(({ heading, content }) => `${heading}\n\n${content}`).join('\n')
   }
 }

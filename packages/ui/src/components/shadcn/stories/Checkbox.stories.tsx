@@ -46,7 +46,7 @@ export function CheckboxWithText() {
         >
           Accept terms and conditions
         </label>
-        <p className="text-sm text-foreground-muted">
+        <p className="text-sm text-muted-foreground">
           You agree to our Terms of Service and Privacy Policy.
         </p>
       </div>

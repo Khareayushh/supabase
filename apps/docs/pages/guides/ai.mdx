@@ -26,9 +26,11 @@ Check out all of the AI [templates and examples](https://github.com/supabase/sup
   {examples.map((x) => (
     <div className="col-span-4" key={x.href}>
       <Link href={x.href} passHref>
-        <GlassPanel icon={'/docs/img/icons/github-icon'} hasLightIcon={true} title={x.name}>
-          {x.description}
-        </GlassPanel>
+        <a>
+          <GlassPanel icon={'/docs/img/icons/github-icon'} hasLightIcon={true} title={x.name}>
+            {x.description}
+          </GlassPanel>
+        </a>
       </Link>
     </div>
   ))}
@@ -74,7 +76,9 @@ export const examples = [
   {integrations.map((x) => (
     <div className="col-span-4" key={x.href}>
       <Link href={x.href} passHref>
-        <GlassPanel title={x.name}>{x.description}</GlassPanel>
+        <a>
+          <GlassPanel title={x.name}>{x.description}</GlassPanel>
+        </a>
       </Link>
     </div>
   ))}
@@ -112,7 +116,9 @@ export const integrations = [
   {customers.map((x) => (
     <div className="col-span-4" key={x.href}>
       <Link href={x.href} passHref>
-        <GlassPanel title={x.name}>{x.description}</GlassPanel>
+        <a>
+          <GlassPanel title={x.name}>{x.description}</GlassPanel>
+        </a>
       </Link>
     </div>
   ))}

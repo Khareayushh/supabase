@@ -3,7 +3,7 @@ export type Json =
   | number
   | boolean
   | null
-  | { [key: string]: Json | undefined }
+  | { [key: string]: Json }
   | Json[]
 
 export interface Database {
@@ -38,50 +38,35 @@ export interface Database {
         Row: {
           checksum: string | null
           id: number
-          last_refresh: string | null
           meta: Json | null
           parent_page_id: number | null
           path: string
           source: string | null
           type: string | null
-          version: string | null
         }
         Insert: {
           checksum?: string | null
           id?: number
-          last_refresh?: string | null
           meta?: Json | null
           parent_page_id?: number | null
           path: string
           source?: string | null
           type?: string | null
-          version?: string | null
         }
         Update: {
           checksum?: string | null
           id?: number
-          last_refresh?: string | null
           meta?: Json | null
           parent_page_id?: number | null
           path?: string
           source?: string | null
           type?: string | null
-          version?: string | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "page_parent_page_id_fkey"
-            columns: ["parent_page_id"]
-            referencedRelation: "page"
-            referencedColumns: ["id"]
-          }
-        ]
       }
       page_section: {
         Row: {
           content: string | null
-          embedding: string | null
-          fts_tokens: unknown | null
+          embedding: unknown | null
           heading: string | null
           id: number
           page_id: number
@@ -90,8 +75,7 @@ export interface Database {
         }
         Insert: {
           content?: string | null
-          embedding?: string | null
-          fts_tokens?: unknown | null
+          embedding?: unknown | null
           heading?: string | null
           id?: number
           page_id: number
@@ -100,59 +84,19 @@ export interface Database {
         }
         Update: {
           content?: string | null
-          embedding?: string | null
-          fts_tokens?: unknown | null
+          embedding?: unknown | null
           heading?: string | null
           id?: number
           page_id?: number
           slug?: string | null
           token_count?: number | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "page_section_page_id_fkey"
-            columns: ["page_id"]
-            referencedRelation: "page"
-            referencedColumns: ["id"]
-          }
-        ]
       }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      docs_search_embeddings: {
-        Args: {
-          embedding: string
-          match_threshold: number
-        }
-        Returns: {
-          id: number
-          path: string
-          type: string
-          title: string
-          subtitle: string
-          description: string
-          headings: string[]
-          slugs: string[]
-        }[]
-      }
-      docs_search_fts: {
-        Args: {
-          query: string
-        }
-        Returns: {
-          id: number
-          path: string
-          type: string
-          title: string
-          subtitle: string
-          description: string
-          headings: string[]
-          slugs: string[]
-        }[]
-      }
       get_page_parents: {
         Args: {
           page_id: number
@@ -164,12 +108,6 @@ export interface Database {
           meta: Json
         }[]
       }
-      hnswhandler: {
-        Args: {
-          "": unknown
-        }
-        Returns: unknown
-      }
       ivfflathandler: {
         Args: {
           "": unknown
@@ -178,7 +116,7 @@ export interface Database {
       }
       match_page_sections: {
         Args: {
-          embedding: string
+          embedding: unknown
           match_threshold: number
           match_count: number
           min_content_length: number
@@ -194,14 +132,13 @@ export interface Database {
       }
       match_page_sections_v2: {
         Args: {
-          embedding: string
+          embedding: unknown
           match_threshold: number
           min_content_length: number
         }
         Returns: {
           content: string | null
-          embedding: string | null
-          fts_tokens: unknown | null
+          embedding: unknown | null
           heading: string | null
           id: number
           page_id: number
@@ -213,29 +150,29 @@ export interface Database {
         Args: {
           "": number[]
         }
-        Returns: string
+        Returns: unknown
       }
       vector_dims: {
         Args: {
-          "": string
+          "": unknown
         }
         Returns: number
       }
       vector_norm: {
         Args: {
-          "": string
+          "": unknown
         }
         Returns: number
       }
       vector_out: {
         Args: {
-          "": string
+          "": unknown
         }
         Returns: unknown
       }
       vector_send: {
         Args: {
-          "": string
+          "": unknown
         }
         Returns: string
       }
@@ -289,14 +226,6 @@ export interface Database {
           public?: boolean | null
           updated_at?: string | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "buckets_owner_fkey"
-            columns: ["owner"]
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          }
-        ]
       }
       migrations: {
         Row: {
@@ -317,7 +246,6 @@ export interface Database {
           id?: number
           name?: string
         }
-        Relationships: []
       }
       objects: {
         Row: {
@@ -330,7 +258,6 @@ export interface Database {
           owner: string | null
           path_tokens: string[] | null
           updated_at: string | null
-          version: string | null
         }
         Insert: {
           bucket_id?: string | null
@@ -342,7 +269,6 @@ export interface Database {
           owner?: string | null
           path_tokens?: string[] | null
           updated_at?: string | null
-          version?: string | null
         }
         Update: {
           bucket_id?: string | null
@@ -354,31 +280,13 @@ export interface Database {
           owner?: string | null
           path_tokens?: string[] | null
           updated_at?: string | null
-          version?: string | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "objects_bucketId_fkey"
-            columns: ["bucket_id"]
-            referencedRelation: "buckets"
-            referencedColumns: ["id"]
-          }
-        ]
       }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      can_insert_object: {
-        Args: {
-          bucketid: string
-          name: string
-          owner: string
-          metadata: Json
-        }
-        Returns: undefined
-      }
       extension: {
         Args: {
           name: string
@@ -395,7 +303,7 @@ export interface Database {
         Args: {
           name: string
         }
-        Returns: unknown
+        Returns: string[]
       }
       get_size_by_bucket: {
         Args: Record<PropertyKey, never>

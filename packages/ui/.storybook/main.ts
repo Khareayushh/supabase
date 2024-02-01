@@ -1,8 +1,7 @@
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 // import type { StorybookConfig } from '@storybook/your-framework'
-import type { StorybookConfig } from '@storybook/react-webpack5';
 
-const config: StorybookConfig = {
+const config: any = {
   stories: [
     // colors
     '../src/lib/colors.stories.tsx',
@@ -15,6 +14,7 @@ const config: StorybookConfig = {
     '../src/components/Button/Button.stories.tsx',
     '../src/components/Checkbox/Checkbox.stories.tsx',
     '../src/components/Collapsible/Collapsible.stories.tsx',
+    '../src/components/Dropdown/Dropdown.stories.tsx',
   ],
   addons: [
     'storybook-dark-mode',
@@ -42,10 +42,7 @@ const config: StorybookConfig = {
      * resolve import paths from tsconfig
      * based on https://stackoverflow.com/a/71677949/4807782
      */
-    if (config && config.resolve) {
-      config.resolve.plugins = [new TsconfigPathsPlugin()];
-    }
-
+    config.resolve.plugins = [new TsconfigPathsPlugin()] // ;<-- this line
     return config
   },
 }

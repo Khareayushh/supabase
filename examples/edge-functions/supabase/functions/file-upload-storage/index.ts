@@ -1,8 +1,8 @@
 // This example shows how to use Edge Functions to read incoming multipart/form-data request,
 // and write files to Supabase Storage and other fields to a database table.
 
-import { Application } from 'https://deno.land/x/oak@v11.1.0/mod.ts'
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.7.1'
+import { Application } from 'oak'
+import { createClient } from '@supabase/supabase-js'
 
 const MB = 1024 * 1024
 
@@ -49,10 +49,9 @@ app.use(async (ctx) => {
   }
 
   // insert record to messages table
-  const { error } = await supabaseClient.from('comments').insert({
-    message: formData.fields!.message || '',
-    image_path: upload.path,
-  })
+  const { error } = await supabaseClient
+    .from('comments')
+    .insert({ message: formData.fields!.message || '', image_path: upload.path })
   if (error) {
     console.error(error)
     ctx.response.status = 500

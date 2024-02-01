@@ -7,37 +7,12 @@ module.exports = [
   {
     permanent: true,
     source: '/docs/guides/storage-caching',
-    destination: '/docs/guides/storage/cdn/fundamentals',
-  },
-  {
-    permanent: true,
-    source: '/docs/guides/storage/cdn',
-    destination: '/docs/guides/storage/cdn/fundamentals',
-  },
-  {
-    permanent: true,
-    source: '/docs/guides/storage/uploads',
-    destination: '/docs/guides/storage/uploads/standard-uploads',
-  },
-  {
-    permanent: true,
-    source: '/docs/guides/storage/image-transformations',
-    destination: '/docs/guides/storage/serving/image-transformations',
-  },
-  {
-    permanent: true,
-    source: '/docs/guides/storage/access-control',
-    destination: 'docs/guides/storage/security/access-control',
+    destination: '/docs/guides/storage/cdn',
   },
   {
     permanent: true,
     source: '/database/Database',
     destination: '/database',
-  },
-  {
-    permanent: true,
-    source: '/docs/guides/database/column-encryption',
-    destination: '/docs/guides/database/extensions/pgsodium',
   },
   {
     permanent: true,
@@ -632,11 +607,6 @@ module.exports = [
   },
   {
     permanent: true,
-    source: '/blog/supavisor-postgres-connection-pooler-ga',
-    destination: '/blog/supavisor-postgres-connection-pooler',
-  },
-  {
-    permanent: true,
     source: '/blog/2022/06/15/blog/2022/06/29/visualizing-supabase-data-using-metabase',
     destination: '/blog/visualizing-supabase-data-using-metabase',
   },
@@ -764,6 +734,11 @@ module.exports = [
     permanent: true,
     source: '/blog/2021/02/02/supabase-beta-january-2021',
     destination: '/blog/supabase-beta-january-2021',
+  },
+  {
+    permanent: true,
+    source: '/blog/2021/02/09/case-study-roboflow',
+    destination: '/customers/roboflow',
   },
   {
     permanent: true,
@@ -1740,12 +1715,7 @@ module.exports = [
   {
     permanent: true,
     source: '/docs/guides/with-expo',
-    destination: '/docs/guides/getting-started/tutorials/with-expo-react-native',
-  },
-  {
-    permanent: true,
-    source: '/docs/guides/getting-started/tutorials/with-expo',
-    destination: '/docs/guides/getting-started/tutorials/with-expo-react-native',
+    destination: '/docs/guides/getting-started/tutorials/with-expo',
   },
   {
     permanent: true,
@@ -1990,6 +1960,11 @@ module.exports = [
     permanent: true,
     source: '/blog/case-study-xendit',
     destination: '/customers/xendit',
+  },
+  {
+    permanent: true,
+    source: '/blog/case-study-roboflow',
+    destination: '/customers',
   },
   {
     permanent: true,
@@ -2322,40 +2297,5 @@ module.exports = [
     permanent: true,
     source: '/docs/guides/ai/managing-indexes',
     destination: '/docs/guides/ai/vector-indexes',
-  },
-  {
-    permanent: true,
-    source: '/blog/supabase-ai-content-storm',
-    destination: 'https://dev.to/supabase/ai-ignites-the-rain-content-storm-is-back-kdl',
-  },
-  {
-    permanent: true,
-    source: '/docs/guides/functions/global-deployments',
-    destination: '/docs/guides/functions/regional-invocation',
-  },
-  {
-    permanent: true,
-    source: '/docs/guides/functions/typescript-support',
-    destination: '/docs/guides/functions',
-  },
-  {
-    permanent: true,
-    source: '/docs/guides/functions/troubleshooting',
-    destination: '/docs/guides/functions/debugging',
-  },
-  {
-    permanent: true,
-    source: '/docs/guides/auth/auth-magic-link',
-    destination: '/docs/guides/auth/passwordless-login/auth-magic-link',
-  },
-  {
-    permanent: true,
-    source: '/docs/guides/auth/auth-password-reset',
-    destination: '/docs/guides/auth/passwords',
-  },
-  {
-    permanent: true,
-    source: '/docs/reference/dart/sign-in-with-apple',
-    destination: '/docs/reference/dart/sign-in-with-id-token',
   },
 ]

@@ -17,13 +17,13 @@ const persistedDebug =
   process.env.NEXT_PUBLIC_IS_PLATFORM === 'true' &&
   globalThis?.localStorage?.getItem(AUTH_DEBUG_PERSISTED_KEY) === 'true'
 
-const shouldEnableNavigatorLock =
+const navigatorLockEnabled = !!(
   process.env.NEXT_PUBLIC_IS_PLATFORM === 'true' &&
-  !(globalThis?.localStorage?.getItem(AUTH_NAVIGATOR_LOCK_DISABLED_KEY) === 'true')
+  !(globalThis?.localStorage?.getItem(AUTH_NAVIGATOR_LOCK_DISABLED_KEY) === 'true') &&
+  globalThis?.navigator?.locks
+)
 
-const navigatorLockEnabled = !!(shouldEnableNavigatorLock && globalThis?.navigator?.locks)
-
-if (shouldEnableNavigatorLock && !globalThis?.navigator?.locks) {
+if (!globalThis?.navigator?.locks) {
   console.warn('This browser does not support the Navigator Locks API. Please update it.')
 }
 

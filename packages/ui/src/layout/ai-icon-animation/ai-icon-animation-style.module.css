@@ -495,7 +495,6 @@
   height: 8px;
   border-radius: 0%;
 }
-
 .ai-icon__container--allow-hover-effect:hover .ai-icon__grid__square--static:nth-child(2),
 [data-selected='true'] .ai-icon__grid__square--static:nth-child(2) {
   transform: rotate(45deg);
@@ -505,7 +504,6 @@
   height: 24px;
   border-radius: 100%;
 }
-
 .ai-icon__container--allow-hover-effect:hover .ai-icon__grid__square--static:nth-child(3),
 [data-selected='true'] .ai-icon__grid__square--static:nth-child(3) {
   transform: rotate(45deg);
@@ -515,7 +513,6 @@
   height: 24px;
   border-radius: 100%;
 }
-
 .ai-icon__container--allow-hover-effect:hover .ai-icon__grid__square--static:nth-child(4),
 [data-selected='true'] .ai-icon__grid__square--static:nth-child(4) {
   transform: rotate(45deg);

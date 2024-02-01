@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router'
-import { isBrowser } from '../helpers'
+
+const isBrowser = typeof window !== 'undefined'
 
 export function useTelemetryProps() {
   const { locale } = useRouter()

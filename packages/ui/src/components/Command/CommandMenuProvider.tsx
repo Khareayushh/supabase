@@ -1,14 +1,6 @@
+import { useTheme, UseThemeProps } from 'common'
 import dynamic from 'next/dynamic'
-import {
-  createContext,
-  ElementRef,
-  PropsWithChildren,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from 'react'
-import { CommandInput } from './Command.utils'
+import { createContext, PropsWithChildren, useContext, useEffect, useState } from 'react'
 
 // `CommandMenu` is heavy - code split to reduce app bundle size
 const CommandMenu = dynamic(() => import('./CommandMenu'), {
@@ -20,13 +12,13 @@ export interface CommandMenuContextValue {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
   isLoading: boolean
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
+  actions: CommandMenuActions
   search: string
   setSearch: React.Dispatch<React.SetStateAction<string>>
   pages: string[]
   setPages: React.Dispatch<React.SetStateAction<string[]>>
   currentPage?: string
-  inputRef: React.RefObject<HTMLInputElement>
-  site: 'studio' | 'docs' | 'website'
+  site: 'studio' | 'docs'
 
   /**
    * Project metadata for easy retrieval
@@ -55,8 +47,12 @@ export const useCommandMenu = () => {
   return context
 }
 
+export interface CommandMenuActions {
+  toggleTheme: UseThemeProps['toggleTheme']
+}
+
 export interface CommandMenuProviderProps {
-  site: 'studio' | 'docs' | 'website'
+  site: 'studio' | 'docs'
   projectRef?: string
   /**
    * Project's API keys, for easy access through CMDK
@@ -91,9 +87,10 @@ const CommandMenuProvider = ({
   const [isLoading, setIsLoading] = useState(false)
   const [search, setSearch] = useState('')
   const [pages, setPages] = useState<string[]>([])
-  const inputRef = useRef<ElementRef<typeof CommandInput>>(null)
+  const { toggleTheme } = useTheme()
   const currentPage = pages[pages.length - 1]
 
+  const actions: CommandMenuActions = { toggleTheme }
   const project = projectRef !== undefined ? { ref: projectRef, apiKeys, apiUrl } : undefined
 
   useKeyboardEvents({ setIsOpen, currentPage, setSearch, setPages })
@@ -105,6 +102,7 @@ const CommandMenuProvider = ({
         setIsOpen,
         isLoading,
         setIsLoading,
+        actions,
         setSearch,
         search,
         pages,
@@ -115,7 +113,6 @@ const CommandMenuProvider = ({
         metadata,
         isOptedInToAI,
         saveGeneratedSQL,
-        inputRef,
       }}
     >
       {children}

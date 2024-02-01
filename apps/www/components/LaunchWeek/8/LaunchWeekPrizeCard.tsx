@@ -60,7 +60,6 @@ export default function LaunchWeekPrizeCard({
             objectFit="cover"
             quality={100}
             objectPosition={imgObjectPosition}
-            alt=""
           />
         </div>
         <div className="p-4 flex flex-col gap-2 items-start">{content && content}</div>

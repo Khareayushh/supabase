@@ -1,36 +1,32 @@
-import '@code-hike/mdx/styles'
+import '../../../packages/ui/build/css/themes/dark.css'
+import '../../../packages/ui/build/css/themes/light.css'
+
 import 'config/code-hike.scss'
-import '../styles/main.scss'
+import '../styles/main.scss?v=1.0.0'
 import '../styles/new-docs.scss'
 import '../styles/prism-okaidia.scss'
 
+import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs'
 import { SessionContextProvider } from '@supabase/auth-helpers-react'
-import { createClient } from '@supabase/supabase-js'
-import { AuthProvider, ThemeProvider, useTelemetryProps, useThemeSandbox } from 'common'
+import { AuthProvider, ThemeProvider, useConsent, useTelemetryProps } from 'common'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useState } from 'react'
 import { AppPropsWithLayout } from 'types'
-import { CommandMenuProvider, PortalToast, PromoToast, useConsent } from 'ui'
+import { CommandMenuProvider } from 'ui'
 import { TabsProvider } from 'ui/src/components/Tabs'
 import Favicons from '~/components/Favicons'
 import SiteLayout from '~/layouts/SiteLayout'
-import { API_URL, IS_PLATFORM } from '~/lib/constants'
+import { API_URL, IS_PLATFORM, LOCAL_SUPABASE } from '~/lib/constants'
 import { post } from '~/lib/fetchWrappers'
+import PortalToast from 'ui/src/layout/PortalToast'
 
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const router = useRouter()
   const telemetryProps = useTelemetryProps()
   const { consentValue, hasAcceptedConsent } = useConsent()
 
-  useThemeSandbox()
-
   const [supabase] = useState(() =>
-    IS_PLATFORM
-      ? createClient(
-          process.env.NEXT_PUBLIC_SUPABASE_URL,
-          process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-        )
-      : undefined
+    IS_PLATFORM || LOCAL_SUPABASE ? createBrowserSupabaseClient() : undefined
   )
 
   const handlePageTelemetry = useCallback(
@@ -144,7 +140,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const SITE_TITLE = 'Supabase Documentation'
 
   const AuthContainer = (props) => {
-    return IS_PLATFORM ? (
+    return IS_PLATFORM || LOCAL_SUPABASE ? (
       <SessionContextProvider supabaseClient={supabase}>
         <AuthProvider>{props.children}</AuthProvider>
       </SessionContextProvider>
@@ -157,12 +153,11 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     <>
       <Favicons />
       <AuthContainer>
-        <ThemeProvider defaultTheme="system" enableSystem disableTransitionOnChange>
+        <ThemeProvider>
           <CommandMenuProvider site="docs">
             <TabsProvider>
               <SiteLayout>
                 <PortalToast />
-                <PromoToast />
                 <Component {...pageProps} />
               </SiteLayout>
             </TabsProvider>

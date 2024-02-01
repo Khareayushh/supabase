@@ -17,19 +17,12 @@ export function deepFilterSections<T extends ICommonItem>(
         section.type === 'markdown' ||
         specFunctionIds.includes(section.id)
     )
-    .flatMap((section) => {
+    .map((section) => {
       if ('items' in section) {
-        const items = deepFilterSections(section.items, specFunctionIds)
-
-        // Only include this category (heading) if it has subitems
-        if (items.length > 0) {
-          return {
-            ...section,
-            items,
-          }
+        return {
+          ...section,
+          items: deepFilterSections(section.items, specFunctionIds),
         }
-
-        return []
       }
       return section
     })

@@ -87,12 +87,14 @@ export const pricing: Pricing = {
         title: 'Point in time recovery',
         tooltips: {
           main: 'PITR cannot be applied retroactively, projects can only be rolled back to the point from which PITR has been applied.',
+          pro: '$100 per 7 days. If > 28 day rollback period, contact enterprise',
+          team: '$100 per 7 days. If > 28 day rollback period, contact enterprise',
         },
         plans: {
           free: false,
           pro: '$100 per 7 days',
           team: '$100 per 7 days',
-          enterprise: '$100 per 7 days, >28 days available',
+          enterprise: true,
         },
         usage_based: false,
       },
@@ -298,7 +300,7 @@ export const pricing: Pricing = {
       {
         title: 'Script size',
         plans: {
-          free: '10 MB',
+          free: '2 MB',
           pro: '10 MB',
           team: '10 MB',
           enterprise: 'Custom',
@@ -548,7 +550,7 @@ export const pricing: Pricing = {
     icon: 'M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z',
     features: [
       {
-        title: 'Community Support',
+        title: 'Community support',
         plans: {
           free: true,
           pro: true,
@@ -558,7 +560,7 @@ export const pricing: Pricing = {
         usage_based: false,
       },
       {
-        title: 'Email Support',
+        title: 'Email support',
         plans: {
           free: false,
           pro: true,
@@ -568,7 +570,7 @@ export const pricing: Pricing = {
         usage_based: false,
       },
       {
-        title: 'Email Support SLA',
+        title: 'Email support SLA',
         plans: {
           free: false,
           pro: false,
@@ -598,7 +600,7 @@ export const pricing: Pricing = {
         usage_based: false,
       },
       {
-        title: 'Designated Customer Success Team',
+        title: 'Designated customer success engineer ',
         plans: {
           free: false,
           pro: false,

@@ -2,11 +2,12 @@
 // https://deno.land/manual/getting_started/setup_your_environment
 // This enables autocomplete, go to definition, etc.
 
+import { serve } from 'std/server'
 import { corsHeaders } from '../_shared/cors.ts'
 
 console.log(`Function "browser-with-cors" up and running!`)
 
-Deno.serve(async (req) => {
+serve(async (req) => {
   // This is needed if you're planning to invoke your function from a browser.
   if (req.method === 'OPTIONS') {
     return new Response('ok', { headers: corsHeaders })

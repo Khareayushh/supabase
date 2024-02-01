@@ -2,11 +2,12 @@
 // https://deno.land/manual/getting_started/setup_your_environment
 // This enables autocomplete, go to definition, etc.
 
-import { Redis } from 'https://deno.land/x/upstash_redis@v1.19.3/mod.ts'
+import { serve } from 'std/server'
+import { Redis } from 'upstash_redis'
 
 console.log(`Function "upstash-redis-counter" up and running!`)
 
-Deno.serve(async (_req) => {
+serve(async (_req) => {
   try {
     const redis = new Redis({
       url: Deno.env.get('UPSTASH_REDIS_REST_URL')!,
@@ -26,22 +27,14 @@ Deno.serve(async (_req) => {
     const counterHash: Record<string, number> | null = await redis.hgetall('supa-edge-counter')
     const counters = Object.entries(counterHash!)
       .sort(([, a], [, b]) => b - a) // sort desc
-      .reduce(
-        (r, [k, v]) => ({
-          total: r.total + v,
-          regions: { ...r.regions, [k]: v },
-        }),
-        {
-          total: 0,
-          regions: {},
-        }
-      )
+      .reduce((r, [k, v]) => ({ total: r.total + v, regions: { ...r.regions, [k]: v } }), {
+        total: 0,
+        regions: {},
+      })
 
     return new Response(JSON.stringify({ counters }), { status: 200 })
   } catch (error) {
-    return new Response(JSON.stringify({ error: error.message }), {
-      status: 200,
-    })
+    return new Response(JSON.stringify({ error: error.message }), { status: 200 })
   }
 })
 

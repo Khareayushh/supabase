@@ -1,11 +1,10 @@
 import Link from 'next/link'
 import React, { ReactNode, useRef } from 'react'
 import { Button, IconArrowUpRight } from 'ui'
+import SectionContainer from '~/components/Layouts/SectionContainer'
+import InteractiveShimmerCard from '../InteractiveShimmerCard'
 import { LazyMotion, domAnimation, m, useInView } from 'framer-motion'
 import { INITIAL_BOTTOM, getAnimation } from '~/lib/animations'
-
-import SectionContainer from '~/components/Layouts/SectionContainer'
-import Panel from '~/components/Panel'
 
 interface UseCase {
   img?: string
@@ -34,7 +33,7 @@ const UseCasesSection = ({ title, paragraph, useCases }: Props) => {
       <SectionContainer className="flex flex-col gap-12">
         <div className="flex flex-col text-center gap-4 items-center justify-center">
           <h2 className="heading-gradient text-2xl sm:text-3xl xl:text-4xl">{title}</h2>
-          <p className="mx-auto text-muted lg:w-1/2">{paragraph}</p>
+          <p className="mx-auto text-scale-900 lg:w-1/2">{paragraph}</p>
         </div>
         <div
           ref={ref}
@@ -63,7 +62,10 @@ const UseCase = ({
 
   return (
     <m.div initial={initial} animate={isInView ? animate : initial} className="flex">
-      <Panel outerClassName="w-full" innerClassName="p-4 md:p-8 h-full !bg-background">
+      <InteractiveShimmerCard
+        outerClassName="w-full"
+        innerClassName="p-4 md:p-8 h-full !bg-scale-200"
+      >
         <div className="h-full flex flex-col gap-4 items-start justify-between">
           <div className="prose">
             <div className="flex items-center gap-2">
@@ -74,11 +76,11 @@ const UseCase = ({
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <path d={useCase.icon} fillRule="evenodd" fill="hsl(var(--foreground-light))" />
+                <path d={useCase.icon} fillRule="evenodd" fill="var(--colors-scale11)" />
               </svg>
               <h4 className="text-base sm:text-lg m-0">{useCase.title}</h4>
             </div>
-            <p className="text-sm text-foreground-lighter mt-2">{useCase.description}</p>
+            <p className="text-sm text-scale-900 mt-2">{useCase.description}</p>
           </div>
           {useCase.cta &&
             (useCase.cta.isDisabled ? (
@@ -86,14 +88,16 @@ const UseCase = ({
                 {useCase.cta.label ?? 'View example'}
               </Button>
             ) : (
-              <Button asChild size="tiny" type="default" iconRight={<IconArrowUpRight />}>
-                <Link href={useCase.cta.link} target="_blank">
-                  {useCase.cta.label ?? 'View example'}
-                </Link>
-              </Button>
+              <Link href={useCase.cta.link}>
+                <a target="_blank">
+                  <Button size="tiny" type="default" iconRight={<IconArrowUpRight />}>
+                    {useCase.cta.label ?? 'View example'}
+                  </Button>
+                </a>
+              </Link>
             ))}
         </div>
-      </Panel>
+      </InteractiveShimmerCard>
     </m.div>
   )
 }

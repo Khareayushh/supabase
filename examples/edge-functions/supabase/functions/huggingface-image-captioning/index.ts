@@ -1,5 +1,6 @@
+import { serve } from 'https://deno.land/std@0.168.0/http/server.ts'
 import { HfInference } from 'https://esm.sh/@huggingface/inference@2.3.2'
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.7.1'
+import { createClient } from '@supabase/supabase-js'
 import { Database } from './types.ts'
 
 console.log('Hello from `huggingface-image-captioning` function!')
@@ -15,7 +16,7 @@ interface WebhookPayload {
   old_record: null | SoRecord
 }
 
-Deno.serve(async (req) => {
+serve(async (req) => {
   const payload: WebhookPayload = await req.json()
   const soRecord = payload.record
   const supabaseAdminClient = createClient<Database>(
