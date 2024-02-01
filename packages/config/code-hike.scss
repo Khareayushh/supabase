@@ -1,4 +1,3 @@
-[data-theme*='dark'],
 .dark {
   --ch-0: dark;
   --ch-1: #8b949e;
@@ -29,7 +28,6 @@
   --ch-25: #6e76811a;
 }
 
-[data-theme='light'],
 .light {
   --ch-0: light;
   --ch-1: #6e7781;
@@ -71,9 +69,6 @@
   font-family: 'Courier New', Courier, monospace;
   //   font-family: Ubuntu, Droid Sans, -apple-system, BlinkMacSystemFont, Segoe WPC, Segoe UI,
   // sans-serif;
-}
-.ch-code-wrapper {
-  background-color: var(--ch-16) !important;
 }
 .ch-terminal-container .ch-frame-content {
   background-color: inherit;
@@ -218,8 +213,7 @@
   top: 0.8em;
 }
 .ch-editor-tab {
-  border: none;
-  border-right: 1px solid var(--ch-16);
+  border-right: 1px solid #252526;
   min-width: -webkit-fit-content;
   min-width: -moz-fit-content;
   min-width: fit-content;
@@ -232,9 +226,10 @@
   box-sizing: border-box;
   padding-left: 15px;
   padding-right: 15px;
-  background-color: var(--ch-21) !important;
-  color: var(--ch-15);
+  background-color: #2d2d2d;
+  color: hsla(0, 0%, 100%, 0.5);
   min-width: 0;
+  border-bottom: 1px solid;
 }
 .ch-editor-tab-active {
   background-color: red;
@@ -259,13 +254,12 @@
     sans-serif;
   -moz-column-break-inside: avoid;
   break-inside: avoid;
-  --ch-title-bar-height: 32px;
+  --ch-title-bar-height: 40px;
   height: 100%;
   //   border: 1px solid red;
 }
 .ch-editor-frame .ch-frame-title-bar {
-  background-color: var(--ch-21) !important;
-  background: var(--ch-21) !important;
+  background: none;
 }
 .ch-editor-terminal {
   position: absolute;
@@ -623,8 +617,7 @@
 .ch-codegroup {
   margin-top: 1.25em;
   margin-bottom: 1.25em;
-  border: 1px solid hsl(var(--border-default)); // @mildtomato
-  box-shadow: none;
+  border: 1px solid var(--colors-scale5); // @mildtomato
 }
 .ch-inline-code > code {
   padding: 0.2em 0.15em;
@@ -644,9 +637,6 @@
 .ch-section-link[data-active='true'] {
   background-color: rgba(186, 230, 253, 0.4);
 }
-.ch-editor-tab[data-active='true'] {
-  background-color: var(--ch-16) !important;
-}
 .ch-section-link[data-active='true'],
 .ch-section-link[data-active='true'] * {
   text-decoration-thickness: 1.5px;
@@ -657,7 +647,7 @@
   margin: 0 -0.15rem;
 }
 .ch-code-multiline-mark-border {
-  background: var(--foreground-default) !important;
+  background: var(--colors-scale12) !important;
   width: 3px;
   height: 100%;
   position: absolute;

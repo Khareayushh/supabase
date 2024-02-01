@@ -1,7 +1,8 @@
-import { Badge, IconCode, IconFastForward, IconGlobe, IconRefreshCcw, ThemeImage, cn } from 'ui'
+import { Badge, IconCode, IconFastForward, IconGlobe, IconRefreshCcw } from 'ui'
 import UseCaseExamples from 'data/products/functions/usecase-examples'
 import Solutions from 'data/Solutions'
 import { NextSeo } from 'next-seo'
+import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import 'swiper/swiper.min.css'
@@ -113,13 +114,24 @@ function Database() {
           ]}
           subheader={[subtitle]}
           image={[
-            <ThemeImage
-              src={`${basePath}/images/product/functions/functions-hero.png`}
-              alt="edge functions header"
-              layout="responsive"
-              width="1680"
-              height="1116"
-            />,
+            <div className="header--light block w-full" key="light">
+              <Image
+                src={`${basePath}/images/product/functions/functions-hero.png`}
+                alt="database header"
+                layout="responsive"
+                width="1680"
+                height="1116"
+              />
+            </div>,
+            <div className="header--dark mr-0 w-full dark:block" key="dark">
+              <Image
+                src={`${basePath}/images/product/functions/functions-hero.png`}
+                alt="database header"
+                layout="responsive"
+                width="1680"
+                height="1116"
+              />
+            </div>,
           ]}
           documentation_url={'/docs/guides/functions'}
         />
@@ -130,16 +142,16 @@ function Database() {
               {featureBlocks.map((item, i) => {
                 return (
                   <div
-                    className="bg-background group flex flex-col gap-4 rounded border px-8 py-6"
+                    className="bg-scale-100 dark:bg-scale-300 group flex flex-col gap-4 rounded border px-8 py-6"
                     key={i}
                   >
-                    <div className="bg-surface-100 text-foreground group-hover:text-brand flex h-12 w-12 items-center justify-center rounded-md border transition-all group-hover:scale-105">
+                    <div className="bg-scale-300 dark:bg-scale-500 text-scale-1200 group-hover:text-brand flex h-12 w-12 items-center justify-center rounded-md border transition-all group-hover:scale-105">
                       {item.icon ? item.icon : <IconCode strokeWidth={2} />}
                     </div>
 
                     <div>
-                      <h3 className="text-foreground text-lg">{item.title}</h3>
-                      <div className="text-foreground-light text-sm">{item.description}</div>
+                      <h3 className="text-scale-1200 text-lg">{item.title}</h3>
+                      <p className="text-scale-900 text-sm">{item.description}</p>
                     </div>
                   </div>
                 )
@@ -165,29 +177,31 @@ function Database() {
                     return (
                       <button
                         key={`featureHighlighted-${i}`}
-                        className={cn(
-                          'bg-background hover:bg-surface-100 group rounded-md border px-6 py-4 text-left transition-all hover:border',
-                          active ? '!bg-surface-100 border-foreground-lighter' : ''
-                        )}
+                        className={
+                          'bg-scale-200 hover:bg-scale-100 hover:dark:bg-scale-300 group rounded-md border px-6 py-4 text-left transition-all hover:border' +
+                          (active
+                            ? ' dark:bg-scale-400 border-scale-500 bg-white'
+                            : ' border-scale-300')
+                        }
                         onClick={() => setCurrentSelection(feat.highlightLines)}
                       >
                         <div
-                          className={cn(
-                            'transition-colors ',
-                            active
-                              ? ' text-foreground'
-                              : ' text-foreground-light group-hover:text-foreground'
-                          )}
+                          className={
+                            'transition-colors ' +
+                            (active
+                              ? ' text-scale-1200'
+                              : ' text-scale-900 group-hover:text-scale-1200')
+                          }
                         >
                           {feat.title}
                         </div>
                         <div
-                          className={cn(
-                            'text-sm transition-colors ',
-                            active
-                              ? ' text-foreground-light'
-                              : ' text-foreground-light group-hover:text-foreground-light '
-                          )}
+                          className={
+                            'text-sm transition-colors ' +
+                            (active
+                              ? ' text-scale-1100'
+                              : ' text-scale-800 group-hover:text-scale-1100 ')
+                          }
                         >
                           {feat.description}
                         </div>
@@ -260,7 +274,9 @@ serve(async (req) => {
             footer={[
               <div className="grid grid-cols-12" key={0}>
                 <div className="col-span-12 mt-0 flex lg:col-span-6 xl:col-span-12 xl:mb-8">
-                  <p className="text-foreground-light m-0">Libraries coming soon:</p>
+                  <p>
+                    <p className="text-scale-1100 m-0">Libraries coming soon:</p>
+                  </p>
                   <div className="ml-1 space-x-1">
                     <Badge dot={false}>Python</Badge>
                     <Badge dot={false}>Dart</Badge>

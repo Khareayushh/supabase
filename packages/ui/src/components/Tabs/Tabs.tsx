@@ -1,6 +1,6 @@
 import * as TabsPrimitive from '@radix-ui/react-tabs'
 import { useRouter } from 'next/router'
-import { Children, PropsWithChildren, useEffect, useState } from 'react'
+import { Children, useEffect, useState } from 'react'
 import styleHandler from '../../lib/theme/styleHandler'
 import { useTabGroup } from './TabsProvider'
 
@@ -16,17 +16,17 @@ interface TabsProps {
   onChange?: any
   onClick?: any
   scrollable?: boolean
-  wrappable?: boolean
   addOnBefore?: React.ReactNode
   addOnAfter?: React.ReactNode
   listClassNames?: string
+  children: PanelPropsProps[]
 }
 
 interface TabsSubComponents {
-  Panel: React.FC<PropsWithChildren<PanelProps>>
+  Panel: React.FC<PanelProps>
 }
 
-const Tabs: React.FC<PropsWithChildren<TabsProps>> & TabsSubComponents = ({
+const Tabs: React.FC<TabsProps> & TabsSubComponents = ({
   defaultActiveId,
   activeId,
   type = 'pills',
@@ -36,7 +36,6 @@ const Tabs: React.FC<PropsWithChildren<TabsProps>> & TabsSubComponents = ({
   onChange,
   onClick,
   scrollable,
-  wrappable,
   addOnBefore,
   addOnAfter,
   listClassNames,
@@ -91,7 +90,6 @@ const Tabs: React.FC<PropsWithChildren<TabsProps>> & TabsSubComponents = ({
 
   const listClasses = [__styles[type].list]
   if (scrollable) listClasses.push(__styles.scrollable)
-  if (wrappable) listClasses.push(__styles.wrappable)
   if (listClassNames) listClasses.push(listClassNames)
 
   return (
@@ -131,7 +129,7 @@ const Tabs: React.FC<PropsWithChildren<TabsProps>> & TabsSubComponents = ({
         })}
         {addOnAfter}
       </TabsPrimitive.List>
-      {children as any}
+      {children}
     </TabsPrimitive.Root>
   )
 }
@@ -148,7 +146,7 @@ interface PanelProps {
   className?: string
 }
 
-export const Panel: React.FC<PropsWithChildren<PanelProps>> = ({ children, id, className }) => {
+export const Panel: React.FC<PanelProps> = ({ children, id, className }) => {
   let __styles = styleHandler('tabs')
 
   return (

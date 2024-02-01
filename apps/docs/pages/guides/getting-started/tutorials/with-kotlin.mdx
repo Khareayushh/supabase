@@ -14,9 +14,8 @@ This tutorial demonstrates how to build a basic product management app. The app 
 ![manage-product-cover](/docs/img/guides/kotlin/manage-product-cover.png)
 
 <Admonition type="note">
-
-If you get stuck while working through this guide, refer to the [full example on GitHub](https://github.com/hieuwu/product-sample-supabase-kt).
-
+  If you get stuck while working through this guide, refer to the [full example on
+  GitHub](https://github.com/hieuwu/product-sample-supabase-kt).
 </Admonition>
 
 <KotlinProjectSetup />
@@ -127,12 +126,11 @@ Open the `AndroidManifest.xml` file, update name property of Application tag:
 
 ```
 
-Create the `MainActivity`:
+Add annotation for the `MainActivity`:
 
 ```kotlin
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    //This will come later
 }
 ```
 
@@ -153,7 +151,7 @@ object SupabaseModule {
             supabaseKey = BuildConfig.SUPABASE_ANON_KEY
         ) {
             install(Postgrest)
-            install(Auth) {
+            install(GoTrue) {
                 flowType = FlowType.PKCE
                 scheme = "app"
                 host = "supabase.com"
@@ -170,8 +168,8 @@ object SupabaseModule {
 
     @Provides
     @Singleton
-    fun provideSupabaseAuth(client: SupabaseClient): Auth {
-        return client.auth
+    fun provideSupabaseGoTrue(client: SupabaseClient): GoTrue {
+        return client.gotrue
     }
 
 
@@ -247,7 +245,7 @@ class ProductRepositoryImpl @Inject constructor(
                     name = product.name,
                     price = product.price,
                 )
-                postgrest.from("products").insert(productDto)
+                postgrest["products"].insert(productDto)
                 true
             }
             true
@@ -258,7 +256,7 @@ class ProductRepositoryImpl @Inject constructor(
 
     override suspend fun getProducts(): List<ProductDto>? {
         return withContext(Dispatchers.IO) {
-            val result = postgrest.from("products")
+            val result = postgrest["products"]
                 .select().decodeList<ProductDto>()
             result
         }
@@ -267,7 +265,7 @@ class ProductRepositoryImpl @Inject constructor(
 
     override suspend fun getProduct(id: String): ProductDto {
         return withContext(Dispatchers.IO) {
-            postgrest.from("products").select {
+            postgrest["products"].select {
                 eq("id", id)
             }.decodeSingle<ProductDto>()
         }
@@ -275,7 +273,7 @@ class ProductRepositoryImpl @Inject constructor(
 
     override suspend fun deleteProduct(id: String) {
         return withContext(Dispatchers.IO) {
-            postgrest.from("products").delete {
+            postgrest["products"].delete {
                 eq("id", id)
             }
         }
@@ -291,12 +289,12 @@ class ProductRepositoryImpl @Inject constructor(
         withContext(Dispatchers.IO) {
             if (imageFile.isNotEmpty()) {
                 val imageUrl =
-                    storage.from("Product%20Image").upload(
+                    storage["Product%20Image"].upload(
                         path = "$imageName.png",
                         data = imageFile,
                         upsert = true
                     )
-                postgrest.from("products").update({
+                postgrest["products"].update({
                     set("name", name)
                     set("price", price)
                     set("image", buildImageUrl(imageFileName = imageUrl))
@@ -304,7 +302,7 @@ class ProductRepositoryImpl @Inject constructor(
                     eq("id", id)
                 }
             } else {
-                postgrest.from("products").update({
+                postgrest["products"].update({
                     set("name", name)
                     set("price", price)
                 }) {
@@ -333,11 +331,11 @@ interface AuthenticationRepository {
 
 ```kotlin
 class AuthenticationRepositoryImpl @Inject constructor(
-    private val auth: Auth
+    private val goTrue: GoTrue
 ) : AuthenticationRepository {
     override suspend fun signIn(email: String, password: String): Boolean {
         return try {
-            auth.signInWith(Email) {
+            goTrue.loginWith(Email) {
                 this.email = email
                 this.password = password
             }
@@ -349,7 +347,7 @@ class AuthenticationRepositoryImpl @Inject constructor(
 
     override suspend fun signUp(email: String, password: String): Boolean {
         return try {
-            auth.signUpWith(Email) {
+            goTrue.signUpWith(Email) {
                 this.email = email
                 this.password = password
             }
@@ -361,7 +359,7 @@ class AuthenticationRepositoryImpl @Inject constructor(
 
     override suspend fun signInWithGoogle(): Boolean {
         return try {
-            auth.signInWith(Google)
+            goTrue.loginWith(Google)
             true
         } catch (e: Exception) {
             false
@@ -371,49 +369,6 @@ class AuthenticationRepositoryImpl @Inject constructor(
 ```
 
 ### Implement screens
-
-To navigate screens, use the AndroidX navigation library. For routes, implement a `Destination` interface:
-
-```kotlin
-
-interface Destination {
-    val route: String
-    val title: String
-}
-
-
-object ProductListDestination : Destination {
-    override val route = "product_list"
-    override val title = "Product List"
-}
-
-object ProductDetailsDestination : Destination {
-    override val route = "product_details"
-    override val title = "Product Details"
-    const val productId = "product_id"
-    val arguments = listOf(navArgument(name = productId) {
-        type = NavType.StringType
-    })
-    fun createRouteWithParam(productId: String) = "$route/${productId}"
-}
-
-object AddProductDestination : Destination {
-    override val route = "add_product"
-    override val title = "Add Product"
-}
-
-object AuthenticationDestination: Destination {
-    override val route = "authentication"
-    override val title = "Authentication"
-}
-
-object SignUpDestination: Destination {
-    override val route = "signup"
-    override val title = "Sign Up"
-}
-```
-
-This will help later for navigating between screens.
 
 Create a `ProductListViewModel`:
 
@@ -1073,7 +1028,7 @@ class SignInViewModel @Inject constructor(
         _password.value = password
     }
 
-    fun onSignIn() {
+    fun onLogin() {
         viewModelScope.launch {
             authenticationRepository.signIn(
                 email = _email.value,
@@ -1206,77 +1161,9 @@ fun SignInScreen(
 }
 ```
 
-### Implement the `MainActivity`
-
-In the `MainActivity` you created earlier, show your newly created screens:
-
-```kotlin
-@AndroidEntryPoint
-class MainActivity : ComponentActivity() {
-    @Inject
-    lateinit var supabaseClient: SupabaseClient
-
-    @OptIn(ExperimentalMaterial3Api::class)
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            ManageProductsTheme {
-                // A surface container using the 'background' color from the theme
-                val navController = rememberNavController()
-                val currentBackStack by navController.currentBackStackEntryAsState()
-                val currentDestination = currentBackStack?.destination
-                Scaffold { innerPadding ->
-                    NavHost(
-                        navController,
-                        startDestination = ProductListDestination.route,
-                        Modifier.padding(innerPadding)
-                    ) {
-                        composable(ProductListDestination.route) {
-                            ProductListScreen(
-                                navController = navController
-                            )
-                        }
-
-                        composable(AuthenticationDestination.route) {
-                            SignInScreen(
-                                navController = navController
-                            )
-                        }
-
-                        composable(SignUpDestination.route) {
-                            SignUpScreen(
-                                navController = navController
-                            )
-                        }
-
-                        composable(AddProductDestination.route) {
-                            AddProductScreen(
-                                navController = navController
-                            )
-                        }
-
-                        composable(
-                            route = "${ProductDetailsDestination.route}/{${ProductDetailsDestination.productId}}",
-                            arguments = ProductDetailsDestination.arguments
-                        ) { navBackStackEntry ->
-                            val productId =
-                                navBackStackEntry.arguments?.getString(ProductDetailsDestination.productId)
-                            ProductDetailsScreen(
-                                productId = productId,
-                                navController = navController,
-                            )
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-```
-
 ### Create the success screen
 
-To handle OAuth and OTP signins, create a new activity to handle the deeplink you set in `AndroidManifest.xml`:
+Implement a "Sign In" success screen. Create new "Empty Activity" and in `AndroidManifest.xml`, add a deep link, make sure `scheme` and `host` are the same as the ones set in the GoTrue instance.
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -1320,8 +1207,6 @@ To handle OAuth and OTP signins, create a new activity to handle the deeplink yo
     </application>
 </manifest>
 ```
-
-Then create the `DeepLinkHandlerActivity`:
 
 ```kotlin
 @AndroidEntryPoint

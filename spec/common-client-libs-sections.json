@@ -12,7 +12,9 @@
     "type": "markdown",
     "excludes": [
       "reference_javascript_v1",
-      "reference_swift_v1"
+      "reference_dart_v0",
+      "reference_python_v2",
+      "reference_swift_v0"
     ]
   },
   {
@@ -22,19 +24,18 @@
     "type": "function"
   },
   {
-    "title": "TypeScript support",
+    "title": "Typescript Support",
     "id": "typescript-support",
     "slug": "typescript-support",
     "type": "markdown",
     "excludes": [
       "reference_javascript_v1",
+      "reference_dart_v0",
       "reference_dart_v1",
-      "reference_dart_v2",
       "reference_python_v2",
       "reference_csharp_v0",
-      "reference_swift_v1",
-      "reference_kotlin_v1",
-      "reference_kotlin_v2"
+      "reference_swift_v0",
+      "reference_kotlin_v0"
     ]
   },
   {
@@ -47,9 +48,8 @@
       "reference_dart_v1",
       "reference_python_v2",
       "reference_csharp_v0",
-      "reference_swift_v1",
-      "reference_kotlin_v1",
-      "reference_kotlin_v2"
+      "reference_swift_v0",
+      "reference_kotlin_v0"
     ]
   },
   {
@@ -372,14 +372,6 @@
             "product": "database",
             "parent": "modifiers",
             "type": "function"
-          },
-          {
-            "id": "explain",
-            "title": "Using explain",
-            "slug": "explain",
-            "product": "database",
-            "parent": "modifiers",
-            "type": "function"
           }
         ]
       }
@@ -553,27 +545,6 @@
         "id": "update-user",
         "title": "Update a user",
         "slug": "auth-updateuser",
-        "product": "auth",
-        "type": "function"
-      },
-      {
-        "id": "get-user-identities",
-        "title": "Retrieve identities linked to a user",
-        "slug": "auth-getuseridentities",
-        "product": "auth",
-        "type": "function"
-      },
-      {
-        "id": "link-identity",
-        "title": "Link an identity to a user",
-        "slug": "auth-linkidentity",
-        "product": "auth",
-        "type": "function"
-      },
-      {
-        "id": "unlink-identity",
-        "title": "Unlink an identity from a user",
-        "slug": "auth-unlinkidentity",
         "product": "auth",
         "type": "function"
       },
@@ -814,13 +785,6 @@
         "slug": "getchannels",
         "product": "realtime",
         "type": "function"
-      },
-      {
-        "id": "broadcast-message",
-        "title": "Broadcast a message",
-        "slug": "broadcastmessage",
-        "product": "realtime",
-        "type": "function"
       }
     ]
   },
@@ -961,12 +925,11 @@
     "title": "Misc",
     "excludes": [
       "reference_dart_v1",
-      "reference_dart_v2",
+      "reference_dart_v0",
       "reference_python_v2",
       "reference_csharp_v0",
-      "reference_swift_v1",
-      "reference_kotlin_v1",
-      "reference_kotlin_v2"
+      "reference_swift_v0",
+      "reference_kotlin_v0"
     ],
     "items": [
       {

@@ -2,11 +2,10 @@ name: Publish to Image Registry
 
 on:
   push:
+    branches:
+      - 'studio'
     tags:
       - '*'
-  # run this action every Monday at 04:00 UTC (Singapore noon)
-  schedule:
-    - cron: '0 4 * * 1'
   workflow_dispatch:
     inputs:
       version:
@@ -29,7 +28,7 @@ jobs:
             latest=false
           tags: |
             type=ref,event=tag
-            type=sha,prefix={{date 'YYYYMMDD'}}-,enable=${{ github.event_name == 'schedule' }}
+            type=sha,prefix={{date 'YYYYMMDD'}}-,enable=${{ github.event_name == 'push' && github.ref_type == 'branch' }}
             type=raw,value=${{ inputs.version }},enable=${{ github.event_name == 'workflow_dispatch' }}
 
   release_x86:
@@ -62,7 +61,7 @@ jobs:
         with:
           push: true
           context: '{{defaultContext}}'
-          file: apps/studio/Dockerfile
+          file: studio/Dockerfile
           target: production
           platforms: linux/${{ env.arch }}
           tags: ${{ steps.meta.outputs.tags }}
@@ -105,7 +104,7 @@ jobs:
         with:
           push: true
           context: .
-          file: apps/studio/Dockerfile
+          file: studio/Dockerfile
           target: production
           platforms: linux/${{ env.arch }}
           tags: ${{ steps.meta.outputs.tags }}

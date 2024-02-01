@@ -22,7 +22,6 @@ export const COLORS = [
 ]
 export type AvailableColors =
   | 'brand'
-  | 'brandAlt'
   | 'scale'
   | 'tomato'
   | 'red'

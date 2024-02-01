@@ -23,21 +23,25 @@ interface Props {
 
 const FeaturesSection = ({ title, paragraph, cta, features }: Props) => {
   const ref = useRef(null)
-  const isInView = useInView(ref, { margin: '-5%', once: true })
+  const isInView = useInView(ref, { margin: '-25%', once: true })
 
   return (
     <LazyMotion features={domAnimation}>
       <SectionContainer>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 xl:gap-10 justify-between">
-          <div className="col-span-full lg:col-span-4 gap-2 flex flex-col items-start">
+          <div className="col-span-full lg:col-span-4 gap-2 flex flex-col">
             <h2 className="text-2xl sm:text-3xl xl:text-4xl max-w-[280px] sm:max-w-xs xl:max-w-[360px] tracking-[-1px]">
               {title}
             </h2>
-            <p className="text-muted mb-4">{paragraph}</p>
+            <p className="text-scale-900 mb-4">{paragraph}</p>
             {cta && (
-              <Button asChild type="default" size="small" icon={<IconArrowUpRight />}>
-                <Link href={cta.link}>{cta.label ?? 'Explore documentation'}</Link>
-              </Button>
+              <Link href={cta.link}>
+                <a>
+                  <Button type="default" size="small" icon={<IconArrowUpRight />}>
+                    {cta.label ?? 'Explore documentation'}
+                  </Button>
+                </a>
+              </Link>
             )}
           </div>
           <div
@@ -83,7 +87,7 @@ const Feature = ({
           >
             <path
               d={feature.icon}
-              stroke="hsl(var(--foreground-default))"
+              stroke="var(--colors-scale12)"
               strokeMiterlimit="10"
               strokeLinejoin="round"
               strokeLinecap="round"
@@ -94,9 +98,7 @@ const Feature = ({
       </div>
       <div className="text-sm lg:text-base">
         <h2 className="text-base">{feature.title}</h2>
-        <ReactMarkdown className="prose pt-1 text-sm text-foreground-muted">
-          {feature.text}
-        </ReactMarkdown>
+        <ReactMarkdown className="prose pt-1 text-sm text-scale-900">{feature.text}</ReactMarkdown>
       </div>
     </m.div>
   )

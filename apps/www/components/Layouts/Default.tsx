@@ -1,6 +1,6 @@
+import { useEffect } from 'react'
 import Nav from 'components/Nav/index'
 import Footer from 'components/Footer/index'
-import { cn } from 'ui'
 
 type Props = {
   hideHeader?: boolean
@@ -22,7 +22,9 @@ const DefaultLayout = (props: Props) => {
   return (
     <>
       {!hideHeader && <Nav />}
-      <main className={cn('relative min-h-screen', className)}>{children}</main>
+      <div className="min-h-screen">
+        <main className={className}>{children}</main>
+      </div>
       {!hideFooter && <Footer className={footerClassName} />}
     </>
   )

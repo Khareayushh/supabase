@@ -1,7 +1,6 @@
 export default {
   "background": [
     "bg",
-    "bg-alternative-200",
     "bg-alternative",
     "bg-selection",
     "bg-control",
@@ -9,9 +8,7 @@ export default {
     "bg-surface-200",
     "bg-surface-300",
     "bg-overlay",
-    "bg-overlay-hover",
-    "bg-muted",
-    "bg-button"
+    "bg-overlay-hover"
   ],
   "border": [
     "border",
@@ -19,18 +16,14 @@ export default {
     "border-secondary",
     "border-overlay",
     "border-control",
-    "border-alternative",
-    "border-strong",
-    "border-stronger",
-    "border-button",
-    "border-button-hover"
+    "border-alternative"
   ],
   "text": [
     "text",
+    "text-strong",
     "text-light",
     "text-lighter",
-    "text-muted",
-    "text-contrast"
+    "text-muted"
   ],
   "colors": [
     "bg-destructive-200",
@@ -50,17 +43,7 @@ export default {
     "bg-brand-400",
     "bg-brand-500",
     "bg-brand-600",
-    "bg-brand",
-    "bg-brand-accent",
-    "bg-brand-button",
-    "bg-_secondary-200",
-    "bg-_secondary-400",
-    "bg-_secondary",
-    "bg-code_block-1",
-    "bg-code_block-2",
-    "bg-code_block-3",
-    "bg-code_block-4",
-    "bg-code_block-5"
+    "bg-brand"
   ],
   "palletes": [
     "bg-black",

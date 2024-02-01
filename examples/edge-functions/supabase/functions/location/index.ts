@@ -2,11 +2,13 @@
 // https://deno.land/manual/getting_started/setup_your_environment
 // This enables autocomplete, go to definition, etc.
 
+import { serve } from 'std/server'
+
 function ips(req: Request) {
   return req.headers.get('x-forwarded-for')?.split(/\s*,\s*/)
 }
 
-Deno.serve(async (req) => {
+serve(async (req) => {
   const clientIps = ips(req) || ['']
   const res = await fetch(
     `https://ipinfo.io/${clientIps[0]}?token=${Deno.env.get('IPINFO_TOKEN')}`,

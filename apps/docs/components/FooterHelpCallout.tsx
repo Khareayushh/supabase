@@ -26,12 +26,12 @@ const FooterHelpCallout = ({
         className="
         min-w-full 
         px-8 py-6 
-        bg-background
+        bg-scale-300 dark:bg-whiteA-200 
         rounded 
-        text-sm text-foreground-muted
+        text-sm text-scale-900
       "
       >
-        <h5 className="text-sm text-foreground-light m-0">{content[footerHelpType].title}</h5>
+        <h5 className="text-sm text-scale-1100 m-0">{content[footerHelpType].title}</h5>
         <ReactMarkdown>{content[footerHelpType].description}</ReactMarkdown>
       </div>
     </div>

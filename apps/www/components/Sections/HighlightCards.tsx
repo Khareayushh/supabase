@@ -1,9 +1,8 @@
 import React, { useRef, useState } from 'react'
 import { LazyMotion, domAnimation, m, useInView } from 'framer-motion'
-import { INITIAL_BOTTOM, getAnimation } from '~/lib/animations'
-
-import Panel from '~/components/Panel'
 import SectionContainer from '~/components/Layouts/SectionContainer'
+import InteractiveShimmerCard from '~/components/InteractiveShimmerCard'
+import { INITIAL_BOTTOM, getAnimation } from '~/lib/animations'
 
 interface Highlight {
   image?: React.ReactNode
@@ -44,22 +43,22 @@ const HighlightCard = ({ highlight, index }: { highlight: Highlight; index: numb
       onMouseLeave={() => setIsHovered(false)}
       animate={isInView ? animate : initial}
     >
-      <Panel hasShimmer innerClassName="flex flex-col !bg-alternative">
+      <InteractiveShimmerCard hasShimmer innerClassName="flex flex-col !bg-scale-100">
         <div className="relative w-full aspect-[1.35/1] mb-4">
           <div
             className="absolute inset-0 w-full h-full z-10"
             style={{
-              background: `radial-gradient(100% 50% at 50% 50%, transparent, hsl(var(--background-alternative-default)))`,
+              background: `radial-gradient(100% 50% at 50% 50%, transparent, var(--colors-scale1))`,
             }}
           />
           {highlight.image && <Img isHovered={isHovered} />}
           {highlight.svg && highlight.svg}
         </div>
         <div className="p-8">
-          <h3 className="text-lg text-foreground mb-2">{highlight.title}</h3>
-          <p className="text-muted">{highlight.paragraph}</p>
+          <h3 className="text-lg text-scale-1200 mb-2">{highlight.title}</h3>
+          <p className="text-scale-900">{highlight.paragraph}</p>
         </div>
-      </Panel>
+      </InteractiveShimmerCard>
     </m.div>
   )
 }

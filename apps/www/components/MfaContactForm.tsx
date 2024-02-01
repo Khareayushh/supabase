@@ -1,7 +1,7 @@
 import { Button, Form, Input, Select } from 'ui'
 import { useState } from 'react'
 import countries from '~/data/Countries.json'
-import supabase from '~/lib/supabaseMisc'
+import supabase from '~/lib/supabase'
 
 const INITIAL_VALUES = {
   companyName: '',

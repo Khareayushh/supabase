@@ -1,6 +1,6 @@
+import React, { useState } from 'react'
 import KJUR from 'jsrsasign'
-import { useState } from 'react'
-import { Button, CodeBlock, Input, Select } from 'ui'
+import { Button, Select, Input, CodeBlock } from 'ui'
 
 const JWT_HEADER = { alg: 'HS256', typ: 'JWT' }
 const now = new Date()
@@ -44,7 +44,7 @@ export default function JwtGenerator({}) {
   return (
     <div>
       <div className="grid mb-8">
-        <label htmlFor="secret">JWT Secret:</label>
+        <label for="secret">JWT Secret:</label>
         <Input
           id="secret"
           type="text"
@@ -63,7 +63,7 @@ export default function JwtGenerator({}) {
       </div>
 
       <div className="grid mb-8">
-        <label htmlFor="token">Payload:</label>
+        <label for="token">Payload:</label>
         <Input.TextArea
           id="token"
           type="text"

@@ -9,5 +9,3 @@ export const detectBrowser = () => {
     return 'Safari'
   }
 }
-
-export const isBrowser = typeof window !== 'undefined'

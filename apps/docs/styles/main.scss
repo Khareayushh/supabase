@@ -29,7 +29,7 @@
 }
 
 body {
-  @apply bg-background;
+  @apply bg-scale-200;
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -76,12 +76,12 @@ article h1 {
 }
 
 .p:not(.prose *):not(.overwrite) {
-  @apply text-foreground-light;
+  @apply text-scale-1100;
   margin-bottom: 16px;
 }
 
 .small:not(.prose *):not(.overwrite) {
-  @apply text-foreground-muted text-xs;
+  @apply text-scale-900 text-xs;
 }
 
 .prose :where(p):not(:where([class~='not-prose'] *)) {
@@ -125,7 +125,7 @@ pre[class*='language-'] {
 
 .method-list-item-validation {
   code {
-    @apply text-xs bg-control rounded;
+    @apply text-xs bg-scale-300 rounded;
     padding: 1px 6px;
   }
 }
@@ -135,7 +135,7 @@ pre[class*='language-'] {
 }
 
 .method-list-group .method-list-group {
-  @apply border border-overlay rounded-md;
+  @apply border border-scale-400 rounded-md;
   margin-bottom: 20px;
   max-width: 600px;
 }
@@ -209,7 +209,7 @@ h4 code {
 
 // code inside admonitions
 .admonition-content p code {
-  @apply bg-control;
+  @apply bg-scale-300;
   word-break: keep-all !important;
   white-space: nowrap !important;
 }
@@ -249,6 +249,21 @@ article p code {
   border: none;
 }
 
+// prevent horizontal scroll on mobile for tablist tab headers
+div[role='tablist'] {
+  @media screen and (min-width: 320px) {
+    max-width: 320px;
+  }
+
+  @media screen and (min-width: 600px) {
+    max-width: 520px;
+  }
+
+  @media screen and (min-width: 769px) {
+    max-width: 620px;
+  }
+}
+
 /*
 * sets the image in @Next/Image components
 * to respect the height of the content
@@ -266,10 +281,4 @@ article p code {
   width: 100% !important;
   position: relative !important;
   height: unset !important;
-}
-
-/* dat.GUI */
-
-.dg.ac {
-  z-index: 9999 !important;
 }

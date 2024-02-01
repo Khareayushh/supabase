@@ -12,16 +12,16 @@ const defaults = {
   },
   text: {
     brand: 'text-purple-600',
-    body: 'text-foreground-light',
-    title: 'text-foreground',
+    body: 'text-scale-600 dark:text-scaleDark-200',
+    title: 'text-scale-700 dark:text-scaleDark-100',
   },
   border: {
     brand: 'border-brand-600',
-    primary: 'border-default',
-    secondary: 'border-secondary',
-    alternative: 'border-alternative',
+    primary: 'border-scale-700',
+    secondary: 'border-scale-400',
+    alternative: 'border-scale-600 dark:border-scaleDark-200',
   },
-  placeholder: 'placeholder-foreground-muted',
+  placeholder: 'placeholder-scale-800',
   focus: `
     outline-none
     focus:ring-current focus:ring-2
@@ -52,15 +52,16 @@ const defaults = {
     },
   },
   overlay: {
-    base: `absolute inset-0 bg-background opacity-50`,
+    base: `absolute inset-0 bg-scale-200 opacity-50`,
     container: `fixed inset-0 transition-opacity`,
   },
 }
 
 const utils = {
   border: {
-    hover: 'border-opacity-50 hover:border-opacity-100',
-    fix: 'border-opacity-100',
+    hover:
+      'border-opacity-50 dark:border-opacity-50 hover:border-opacity-100 dark:hover:border-opacity-100',
+    fix: 'border-opacity-100 dark:border-opacity-100',
   },
 }
 
@@ -111,7 +112,6 @@ export default {
           first:rounded-tl-md first:rounded-tr-md
           last:rounded-bl-md last:rounded-br-md
           overflow-hidden
-          will-change-transform
         `,
         trigger: `
           flex flex-row
@@ -124,7 +124,7 @@ export default {
           outline-none
           focus-visible:ring-1
           focus-visible:z-10
-          ring-foreground-light
+          ring-scale-1100
         `,
         content: `
           data-open:animate-slide-down
@@ -142,7 +142,7 @@ export default {
         container: `
           group
           border
-          border-default
+          border-scale-700
 
           first:rounded-tl-md first:rounded-tr-md
           last:rounded-bl-md last:rounded-br-md
@@ -162,10 +162,10 @@ export default {
           outline-none
           focus-visible:ring-1
           focus-visible:z-10
-          ring-foreground-light
+          ring-scale-1100
 
           transition-colors
-          hover:bg-background
+          hover:bg-scale-200
 
           overflow-hidden
 
@@ -178,15 +178,15 @@ export default {
         `,
         panel: `
           px-6 py-3
-          border-t border-strong
-          bg-background
+          border-t border-scale-700
+          bg-scale-200
         `,
       },
     },
     justified: `justify-between`,
     chevron: {
       base: `
-        text-foreground-lighter
+        text-scale-900
         rotate-0
         group-state-open:rotate-180
         group-data-[state=open]:rotate-180
@@ -216,9 +216,8 @@ export default {
     },
     dot: '-ml-0.5 mr-1.5 h-2 w-2 rounded-full',
     color: {
-      brand: 'bg-brand-500 text-brand-600 border border-brand-500',
-      brandAlt: 'bg-brand bg-opacity-100 text-background border border-brand',
-      scale: 'bg-background text-foreground-light border border-strong',
+      brand: 'bg-brand-500 text-brand-600 border border-brand-400',
+      scale: 'bg-scale-200 text-scale-1100 border border-scale-700',
       tomato: `bg-tomato-200 text-tomato-1100 border border-tomato-700`,
       red: `bg-red-200 text-red-1100 border border-red-700`,
       crimson: `bg-crimson-200 text-crimson-1100 border border-crimson-700`,
@@ -227,7 +226,7 @@ export default {
       violet: `bg-violet-200 text-violet-1100 border border-violet-700`,
       indigo: `bg-indigo-200 text-indigo-1100 border border-indigo-700`,
       blue: `bg-blue-200 text-blue-1100 border border-blue-700`,
-      green: `bg-opacity-10 bg-brand-500 text-brand-600 border border-brand-500`,
+      green: `bg-green-200 text-green-1100 border border-green-700`,
       grass: `bg-grass-200 text-grass-1100 border border-grass-700`,
       orange: `bg-orange-200 text-orange-1100 border border-orange-700`,
       yellow: `bg-yellow-200 text-yellow-1100 border border-yellow-700`,
@@ -252,41 +251,41 @@ export default {
     description: `text-xs`,
     variant: {
       danger: {
-        base: `bg-red-200 btext-red-1200 border-red-700`,
+        base: `bg-red-200 dark:bg-red-100 btext-red-1200 border-red-700`,
         icon: `text-red-900`,
         header: `text-red-1200`,
         description: `text-red-1100`,
       },
       warning: {
-        base: `bg-amber-200 border-amber-700`,
+        base: `bg-amber-200 dark:bg-amber-100 border-amber-700`,
         icon: `text-amber-900`,
         header: `text-amber-1200`,
         description: `text-amber-1100`,
       },
       info: {
-        base: `bg-alternative border-alternative`,
-        icon: `text-foreground-lighter`,
-        header: `text-foreground`,
-        description: `text-foreground-light`,
+        base: `bg-scale-400 border-scale-500 dark:bg-scale-100 dark:border-scale-300`,
+        icon: `text-scale-900`,
+        header: `text-scale-1200`,
+        description: `text-scale-1100`,
       },
       success: {
-        base: `bg-brand-300 border-brand-400`,
+        base: `bg-brand-300 dark:bg-brand-100 border-brand-400`,
         icon: `text-brand`,
         header: `text-brand-600`,
         description: `text-brand-600`,
       },
       neutral: {
-        base: `bg-surface-100 border-default`,
-        icon: `text-foreground-muted`,
-        header: `text-foreground`,
-        description: `text-foreground-light`,
+        base: `bg-scale-300 dark:bg-scale-300 border-scale-500`,
+        icon: `text-scale-900`,
+        header: `text-scale-1200`,
+        description: `text-scale-1100`,
       },
     },
     close: `
       absolute
       right-6 top-4
       p-0 m-0
-      text-foreground-muted
+      text-scale-900
       cursor-pointer transition ease-in-out
       bg-transparent border-transparent focus:outline-none
       opacity-50 hover:opacity-100`,
@@ -298,7 +297,7 @@ export default {
 
   card: {
     base: `
-      bg-surface-100
+      bg-white dark:bg-scaleDark-700
 
       border
       ${defaults.border.primary}
@@ -327,7 +326,7 @@ export default {
       base: `
         relative
         cursor-pointer
-        text-foreground-lighter
+        text-scale-900
         flex
         items-center
         space-x-2
@@ -335,15 +334,15 @@ export default {
         transition
         focus:outline-none
         focus-visible:ring
-        focus-visible:ring-foreground-muted
-        focus-visible:border-foreground-muted
+        focus-visible:ring-scale-700
+        focus-visible:border-scale-900
       `,
       inactive: `
-        hover:text-foreground
+        hover:text-scale-1200
       `,
       active: `
-        !text-foreground
-        border-b-2 border-foreground
+        !text-scale-1200
+        border-b-2 border-scale-1200
       `,
     },
     pills: {
@@ -361,18 +360,18 @@ export default {
         border
         focus:outline-none
         focus-visible:ring
-        focus-visible:ring-foreground-muted
-        focus-visible:border-foreground-muted
+        focus-visible:ring-scale-700
+        focus-visible:border-scale-900
         `,
       inactive: `
-        bg-background
-        border-strong hover:border-foreground-muted
-        text-foreground-muted hover:text-foreground
+        bg-scale-200
+        border-scale-700 hover:border-scale-900
+        text-scale-900 hover:text-scale-1200
       `,
       active: `
-        bg-selection
-        text-foreground
-        border-stronger
+        bg-scale-600
+        text-scale-1200
+        border-scale-800
       `,
     },
     'rounded-pills': {
@@ -389,18 +388,18 @@ export default {
         rounded-full
         focus:outline-none
         focus-visible:ring
-        focus-visible:ring-foreground-muted
-        focus-visible:border-foreground-muted
+        focus-visible:ring-scale-700
+        focus-visible:border-scale-900
         `,
       inactive: `
-        bg-surface-200 hover:bg-surface-300
-        hover:border-foreground-lighter
-        text-foreground-lighter hover:text-foreground
+        bg-scale-400 hover:bg-scale-500
+        hover:border-scale-900
+        text-scale-900 hover:text-scale-1200
       `,
       active: `
-        bg-foreground
-        text-background
-        border-foreground
+        bg-scale-1200
+        text-scale-200
+        border-scale-1200
       `,
     },
     block: 'w-full flex items-center justify-center',
@@ -408,7 +407,6 @@ export default {
       ...default__padding_and_text,
     },
     scrollable: `overflow-auto whitespace-nowrap no-scrollbar mask-fadeout-right`,
-    wrappable: `flex-wrap`,
     content: `focus:outline-none transition-height`,
   },
 
@@ -424,24 +422,24 @@ export default {
       rounded-md
       shadow-sm
       transition-all
-      text-foreground
+      text-scale-1200
       border
-      focus-visible:shadow-md
+      focus:shadow-md
       ${defaults.focus}
-      focus-visible:border-foreground-muted
-      focus-visible:ring-background-control
+      focus:border-scale-900
+      focus:ring-scale-400
       ${defaults.placeholder}
     `,
     variants: {
       standard: `
-        bg-foreground/[.026]
-        border border-control
+        bg-scaleA-200
+        border border-scale-700
         `,
       error: `
-        bg-destructive-200
-        border border-destructive-500
-        focus:ring-destructive-400
-        placeholder:text-destructive-400
+        bg-red-100
+        border border-red-700
+        focus:ring-red-500
+        placeholder:text-red-600
        `,
     },
     container: 'relative',
@@ -467,12 +465,12 @@ export default {
       rounded-md
       shadow-sm
       transition-all
-      text-foreground
+      text-scale-1200
       border
-      focus-visible:shadow-md
+      focus:shadow-md
       ${defaults.focus}
-      focus-visible:border-foreground-muted
-      focus-visible:ring-background-control
+      focus:border-scale-900
+      focus:ring-scale-400
       ${defaults.placeholder}
 
       appearance-none
@@ -480,14 +478,14 @@ export default {
     `,
     variants: {
       standard: `
-        bg-background
-        border border-strong
+        bg-scaleA-200
+        border border-scale-700
         `,
       error: `
-        bg-destructive-200
-        border border-destructive-500
-        focus:ring-destructive-400
-        placeholder:text-destructive-400
+        bg-red-100
+        border border-red-700
+        focus:ring-red-500
+        placeholder:text-red-600
        `,
     },
     container: 'relative',
@@ -498,7 +496,7 @@ export default {
     disabled: 'opacity-50',
     actions_container: 'absolute inset-y-0 right-0 pl-3 pr-1 mr-5 flex items-center',
     chevron_container: 'absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none',
-    chevron: 'h-5 w-5 text-foreground-lighter',
+    chevron: 'h-5 w-5 text-scale-800',
   },
 
   /*
@@ -513,12 +511,12 @@ export default {
       rounded-md
       shadow-sm
       transition-all
-      text-foreground
+      text-scale-1200
       border
-      focus-visible:shadow-md
+      focus:shadow-md
       ${defaults.focus}
-      focus-visible:border-foreground-muted
-      focus-visible:ring-background-control
+      focus:border-scale-900
+      focus:ring-scale-400
       ${defaults.placeholder}
 
       appearance-none
@@ -526,14 +524,14 @@ export default {
     `,
     variants: {
       standard: `
-        bg-control
-        border border-strong
+        bg-scaleA-200
+        border border-scale-700
       `,
       error: `
-        bg-destructive-200
-        border border-destructive-500
-        focus:ring-destructive-400
-        placeholder:text-destructive-400
+        bg-red-100
+        border border-red-700
+        focus:ring-red-500
+        placeholder:text-red-600
        `,
     },
     disabled: 'opacity-50',
@@ -569,9 +567,9 @@ export default {
     base: `
       bg-transparent
       ${defaults.focus}
-      focus:ring-border-muted
+      focus:ring-scale-400
       text-brand
-      border-strong
+      border-scale-700
       shadow-sm
       rounded
       cursor-pointer
@@ -586,19 +584,19 @@ export default {
     },
     disabled: 'opacity-50',
     label: {
-      base: `text-foreground-light cursor-pointer`,
+      base: `text-scale-1100 cursor-pointer`,
       ...defaults.size.text,
     },
     label_before: {
-      base: 'text-border',
+      base: 'text-scale-500',
       ...defaults.size.text,
     },
     label_after: {
-      base: 'text-border',
+      base: 'text-scale-500',
       ...defaults.size.text,
     },
     description: {
-      base: `text-foreground-lighter`,
+      base: `text-scale-1000`,
       ...defaults.size.text,
     },
     group: `space-y-3`,
@@ -629,14 +627,14 @@ export default {
       absolute
       ${defaults.focus}
       focus:ring-brand-400
-      border-strong
+      border-scale-700
 
       text-brand
       shadow-sm
       cursor-pointer
       peer
 
-      bg-surface-100
+      bg-scale-300
     `,
     hidden: `absolute opacity-0`,
     size: {
@@ -670,14 +668,14 @@ export default {
           xlarge: `px-8 p-4`,
         },
         inactive: `
-          bg-surface-200
-          border-alternative
-          hover:border-strong
-          hover:bg-surface-300
+          bg-scale-100 dark:bg-scale-400
+          border-scale-500 dark:border-scale-500
+          hover:border-scale-700 hover:dark:border-scale-700
+          hover:bg-scale-200 dark:hover:bg-scale-500
         `,
         active: `
-          bg-selection z-10
-          border-stronger
+          bg-scale-300 dark:bg-scale-600 z-10
+          border-scale-900 dark:border-scale-900
           border-1
         `,
         radio_offset: 'left-4',
@@ -706,14 +704,14 @@ export default {
           xlarge: `px-8 p-4`,
         },
         inactive: `
-          bg-surface-200
-          border-alternative
-          hover:border-strong
-          hover:bg-surface-300
+          bg-scale-100 dark:bg-scale-400
+          border-scale-500 dark:border-scale-500
+          hover:border-scale-700 hover:dark:border-scale-700
+          hover:bg-scale-200 dark:hover:bg-scale-500
         `,
         active: `
-          bg-selection z-10
-          border-stronger
+          bg-scale-300 dark:bg-scale-600 z-10
+          border-scale-900 dark:border-scale-900
           border-1
         `,
         radio_offset: 'left-4',
@@ -746,14 +744,14 @@ export default {
           xlarge: `px-8 p-4`,
         },
         inactive: `
-          bg-surface-200
-          border-alternative
-          hover:border-strong
-          hover:bg-surface-300
+          bg-scale-100 dark:bg-scale-400
+          border-scale-500 dark:border-scale-500
+          hover:border-scale-700 hover:dark:border-scale-700
+          hover:bg-scale-200 dark:hover:bg-scale-500
         `,
         active: `
-          bg-selection z-10
-          border-stronger border-1
+          bg-scale-300 dark:bg-scale-500 z-10
+          border-scale-900 dark:border-scale-900 border-1
         `,
         radio_offset: 'left-4',
       },
@@ -769,7 +767,7 @@ export default {
         group: `grid grid-cols-12 gap-3`,
         base: `
           transition
-          border border-stronger
+          border border-scale-700 hover:border-scale-900
           shadow-sm
           rounded-lg
           grow
@@ -782,14 +780,14 @@ export default {
           xlarge: `px-8 p-4`,
         },
         inactive: `
-          bg-surface-200
-          border-alternative
-          hover:border-strong
-          hover:bg-surface-300
+          bg-scale-100 dark:bg-scale-400
+          border-scale-500 dark:border-scale-500
+          hover:border-scale-700 hover:dark:border-scale-700
+          hover:bg-scale-200 dark:hover:bg-scale-500
         `,
         active: `
-          bg-selection z-10
-          border-strong
+          bg-scale-300 dark:bg-scale-600 z-10
+          border-scale-900 dark:border-scale-900
           border-1
         `,
         radio_offset: 'left-4',
@@ -824,23 +822,23 @@ export default {
       },
     },
     label: {
-      base: `text-foreground-light cursor-pointer`,
+      base: `text-scale-1100 cursor-pointer`,
       ...defaults.size.text,
     },
     label_before: {
-      base: 'text-border',
+      base: 'text-scale-500',
       ...defaults.size.text,
     },
     label_after: {
-      base: 'text-border',
+      base: 'text-scale-500',
       ...defaults.size.text,
     },
     description: {
-      base: `text-foreground-lighter`,
+      base: `text-scale-900`,
       ...defaults.size.text,
     },
     optionalLabel: {
-      base: `text-foreground-lighter`,
+      base: `text-scale-900`,
       ...defaults.size.text,
     },
     disabled: `opacity-50 cursor-auto border-dashed`,
@@ -849,17 +847,17 @@ export default {
   sidepanel: {
     base: `
       z-40
-      bg-overlay
+      bg-scale-100 dark:bg-scale-300
       flex flex-col
       fixed
       inset-y-0
-      h-full lg:h-screen
-      border-l border-overlay
+      h-screen
+      border-l border-overlay-border
       shadow-xl
     `,
     header: `
-      space-y-1 py-4 px-4 bg-overlay sm:px-6
-      border-b border-overlay
+      space-y-1 py-4 px-4 bg-overlay-bg sm:px-6
+      border-b border-overlay-border
     `,
     contents: `
       relative
@@ -871,16 +869,14 @@ export default {
     `,
     footer: `
       flex justify-end gap-2
-      p-4 bg-overlay
-      border-t border-overlay
+      p-4 bg-overlay-bg
+      border-t border-overlay-border
     `,
     size: {
       medium: `w-screen max-w-md h-full`,
       large: `w-screen max-w-2xl h-full`,
       xlarge: `w-screen max-w-3xl h-full`,
       xxlarge: `w-screen max-w-4xl h-full`,
-      xxxlarge: `w-screen max-w-5xl h-full`,
-      xxxxlarge: `w-screen max-w-6xl h-full`,
     },
     align: {
       left: `
@@ -898,12 +894,13 @@ export default {
       w-full
       h-px
       my-2
-      bg-border
+      bg-scale-300 dark:bg-scale-500
     `,
     overlay: `
       z-40
       fixed
-      bg-alternative
+      bg-scale-300
+      dark:bg-scale-100
       h-full w-full
       left-0
       top-0
@@ -931,10 +928,10 @@ export default {
       cursor-pointer
       transition-colors ease-in-out duration-200
       ${defaults.focus}
-      focus:!ring-border
-      bg-foreground-muted/40
+      focus:ring-scale-400
+      bg-scale-500
 
-      hover:bg-foreground-muted/60
+      hover:bg-scale-700
     `,
     active: `
       !bg-brand
@@ -951,7 +948,8 @@ export default {
       base: `
         inline-block h-5 w-5
         rounded-full
-        bg-white
+        bg-scale-100
+        dark:bg-scale-900
         shadow ring-0
         transition
         ease-in-out duration-200
@@ -1010,31 +1008,31 @@ export default {
     data_input_vertical_layout__align_right: 'text-right',
 
     label: {
-      base: 'block text-foreground-light',
+      base: 'block text-scale-1100',
       size: {
         ...defaults.size.text,
       },
     },
     label_optional: {
-      base: 'text-foreground-lighter',
+      base: 'text-scale-900',
       size: {
         ...defaults.size.text,
       },
     },
     description: {
-      base: 'mt-2 text-foreground-lighter leading-normal',
+      base: 'mt-2 text-scale-900 leading-normal',
       size: {
         ...defaults.size.text,
       },
     },
     label_before: {
-      base: 'text-foreground-lighter ',
+      base: 'text-scale-1000 ',
       size: {
         ...defaults.size.text,
       },
     },
     label_after: {
-      base: 'text-foreground-lighter',
+      base: 'text-scale-1000',
       size: {
         ...defaults.size.text,
       },
@@ -1061,6 +1059,99 @@ export default {
   },
 
   /*
+   *  Dropdown
+   */
+
+  dropdown: {
+    // root:
+    trigger: `
+      flex
+      border-none
+      rounded
+      bg-transparent p-0
+      outline-none
+      outline-offset-1
+      transition-all
+      focus:outline-4
+      focus:outline-scale-600
+    `,
+    item_nested: `
+      border-none
+      focus:outline-none
+      focus:bg-scale-300 dark:focus:bg-scale-500
+      focus:text-scale-1200
+      data-open:bg-scale-300 dark:data-open:bg-scale-500
+      data-open:text-scale-1200
+    `,
+    content: `
+      z-40
+      bg-overlay
+      border
+      rounded
+      shadow-lg
+      py-1.5
+      origin-dropdown
+      data-open:animate-dropdown-content-show
+      data-closed:animate-dropdown-content-hide
+      min-w-fit
+    `,
+    size: {
+      tiny: `w-40`,
+      small: `w-48`,
+      medium: `w-64`,
+      large: `w-80`,
+      xlarge: `w-96`,
+      content: `w-auto`,
+    },
+    arrow: `
+      fill-current
+      border-0 border-t
+    `,
+    item: `
+      group
+      relative
+      text-sm
+      text-body-light
+      px-4 py-1.5 flex items-center space-x-2
+      cursor-pointer
+      focus:bg-selection
+      focus:text-body
+      border-none
+      focus:outline-none
+    `,
+    disabled: `opacity-50 cursor-default`,
+    label: `
+      text-body-lighter
+      px-4 flex items-center space-x-2 py-1.5
+      text-xs
+    `,
+    separator: `
+      w-full
+      my-2
+      border-t-[1px]
+    `,
+    misc: `
+      px-4 py-1.5
+    `,
+    check: `
+      absolute left-3
+      flex items-center
+      data-checked:text-scale-1200
+    `,
+    input: `
+      flex items-center space-x-0 pl-8 pr-4
+    `,
+    right_slot: `
+      text-scale-900
+      group-focus:text-scale-1000
+      absolute
+      -translate-y-1/2
+      right-2
+      top-1/2
+    `,
+  },
+
+  /*
    *  Popover
    */
 
@@ -1068,6 +1159,7 @@ export default {
     trigger: `
       flex
       border-none
+
       rounded
       bg-transparent
       p-0
@@ -1075,12 +1167,13 @@ export default {
       outline-offset-1
       transition-all
       focus:outline-4
-      focus:outline-border-control
+      focus:outline-scale-600
+
     `,
     content: `
       z-40
-      bg-overlay
-      border border-overlay
+      bg-scale-100 dark:bg-scale-300
+      border border-scale-300 dark:border-scale-500
       rounded
       shadow-lg
       data-open:animate-dropdown-content-show
@@ -1100,24 +1193,24 @@ export default {
       content: `w-auto`,
     },
     header: `
-      bg-surface-200
+      bg-scale-200 dark:bg-scale-400
       space-y-1 py-1.5 px-3
-      border-b border-overlay
+      border-b border-scale-300 dark:border-scale-500
     `,
     footer: `
-      bg-surface-200
+      bg-scale-200 dark:bg-scale-400
       py-1.5 px-3
-      border-t border-overlay
+      border-t border-scale-300 dark:border-scale-500
     `,
     close: `
       transition
-      text-foreground-lighter
+      text-scale-900 hover:text-scale-1100
     `,
     separator: `
       w-full
       h-px
       my-2
-      bg-border-overlay
+      bg-scale-300 dark:bg-scale-500
     `,
   },
 
@@ -1131,18 +1224,18 @@ export default {
         cursor-pointer
         flex space-x-3 items-center
         outline-none
-        focus-visible:ring-1 ring-foreground-muted focus-visible:z-10
+        focus-visible:ring-1 ring-scale-1200 focus-visible:z-10
         group
       `,
       content: {
         base: `transition truncate text-sm w-full`,
-        normal: `text-foreground-light group-hover:text-foreground`,
-        active: `text-foreground font-semibold`,
+        normal: `text-scale-1100 group-hover:text-scale-1200`,
+        active: `text-scale-1200 font-semibold`,
       },
       icon: {
         base: `transition truncate text-sm`,
-        normal: `text-foreground-lighter group-hover:text-foreground-light`,
-        active: `text-foreground`,
+        normal: `text-scale-900 group-hover:text-scale-1100`,
+        active: `text-scale-1200`,
       },
       variants: {
         text: {
@@ -1151,11 +1244,11 @@ export default {
           `,
           normal: `
             font-normal
-            border-default
-            group-hover:border-foreground-muted`,
+            border-scale-500
+            group-hover:border-scale-900`,
           active: `
             font-semibold
-            text-foreground-muted
+            text-scale-900
             z-10
           `,
         },
@@ -1166,12 +1259,12 @@ export default {
           normal: `
             border-l
             font-normal
-            border-default
-            group-hover:border-foreground-muted`,
+            border-scale-500
+            group-hover:border-scale-900`,
           active: `
             font-semibold
 
-            text-foreground-muted
+            text-scale-900
             z-10
 
             border-l
@@ -1186,12 +1279,13 @@ export default {
           `,
           normal: `
             font-normal
-            border-default
-            group-hover:border-foreground-muted`,
+            border-scale-500
+            group-hover:border-scale-900`,
           active: `
             font-semibold
-            bg-surface-200
-            text-foreground-lighter
+            bg-scale-400
+            dark:bg-scale-300
+            text-scale-900
             z-10
 
             rounded-md
@@ -1205,8 +1299,8 @@ export default {
         mb-2
         font-normal
       `,
-      icon: `text-foreground-lighter`,
-      content: `text-sm text-foreground-lighter w-full`,
+      icon: `text-scale-900`,
+      content: `text-sm text-scale-900 w-full`,
       variants: {
         text: ``,
         pills: `px-3`,
@@ -1221,9 +1315,9 @@ export default {
   modal: {
     base: `
       relative
-      bg-overlay
+      bg-scale-100 dark:bg-scale-300
       my-4
-      border border-overlay
+      border border-scale-300 dark:border-scale-500
       rounded-md
       shadow-xl
       data-open:animate-overlay-show
@@ -1231,15 +1325,14 @@ export default {
 
     `,
     header: `
-      bg-surface-200
+      bg-scale-200 dark:bg-scale-400
       space-y-1 py-3 px-4 sm:px-5
-      border-b border-overlay
-      flex items-center justify-between
+      border-b border-scale-300 dark:border-scale-500
     `,
     footer: `
       flex justify-end gap-2
       py-3 px-5
-      border-t border-overlay
+      border-t border-scale-300 dark:border-scale-500
     `,
     size: {
       tiny: `sm:align-middle sm:w-full sm:max-w-xs`,
@@ -1253,7 +1346,8 @@ export default {
     overlay: `
       z-40
       fixed
-      bg-alternative
+      bg-scale-300
+      dark:bg-scale-100
       h-full w-full
       left-0
       top-0
@@ -1274,7 +1368,7 @@ export default {
       w-full
       h-px
       my-2
-      bg-border-overlay
+      bg-scale-300 dark:bg-scale-500
     `,
     content: `px-5`,
   },
@@ -1288,12 +1382,12 @@ export default {
       w-full
       rounded-md
       shadow-sm
-      text-foreground
+      text-scale-1200
       border
-      focus-visible:shadow-md
+      focus:shadow-md
       ${defaults.focus}
-      focus-visible:border-foreground-muted
-      focus-visible:ring-background-control
+      focus:border-scale-900
+      focus:ring-scale-400
       ${defaults.placeholder}
       indent-px
       transition-all
@@ -1303,18 +1397,18 @@ export default {
     label: `truncate`,
     variants: {
       standard: `
-        bg-control
-        border border-control
+        bg-scaleA-200
+        border border-scale-700
 
-        aria-expanded:border-foreground-muted
-        aria-expanded:ring-border-muted
+        aria-expanded:border-scale-900
+        aria-expanded:ring-scale-400
         aria-expanded:ring-2
         `,
       error: `
-        bg-destructive-200
-        border border-destructive-500
-        focus:ring-destructive-400
-        placeholder:text-destructive-400
+        bg-red-100
+        border border-red-700
+        focus:ring-red-500
+        placeholder:text-red-600
        `,
     },
     options_container_animate: `
@@ -1325,10 +1419,10 @@ export default {
       data-closed:opacity-0
     `,
     options_container: `
-      bg-overlay
+      bg-scale-100 dark:bg-scale-300
       shadow-lg
       border border-solid
-      border-overlay max-h-60
+      border-gray-100 dark:border-gray-600 max-h-60
       rounded-md py-1 text-base
       sm:text-sm z-10 overflow-hidden overflow-y-scroll
 
@@ -1336,9 +1430,9 @@ export default {
       data-open:animate-dropdown-content-show
       data-closed:animate-dropdown-content-hide
     `,
-    with_icon: 'pl-2',
+    with_icon: 'pl-10',
     addOnBefore: `
-      w-full flex flex-row items-center space-x-3
+    w-full flex flex-row items-center space-x-3
     `,
     size: {
       ...default__padding_and_text,
@@ -1346,19 +1440,19 @@ export default {
     disabled: `opacity-50`,
     actions_container: 'absolute inset-y-0 right-0 pl-3 pr-1 flex space-x-1 items-center',
     chevron_container: 'absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none',
-    chevron: 'h-5 w-5 text-foreground-muted',
+    chevron: 'h-5 w-5 text-scale-600',
     option: `
       w-listbox
       transition cursor-pointer select-none relative py-2 pl-3 pr-9
-      text-foreground-muted
+      text-scale-900
       text-sm
-      hover:bg-border-overlay
-      focus:bg-border-overlay
-      focus:text-foreground
+      hover:bg-scale-300 dark:hover:bg-scale-500
+      focus:bg-scale-300 dark:focus:bg-scale-500
+      focus:text-scale-1200
       border-none
       focus:outline-none
     `,
-    option_active: `text-foreground bg-selection`,
+    option_active: `text-scale-1200 bg-scale-600`,
     option_disabled: `cursor-not-allowed opacity-50`,
     option_inner: `flex items-center space-x-3`,
     option_check: `absolute inset-y-0 right-0 flex items-center pr-3 text-brand`,
@@ -1388,7 +1482,7 @@ export default {
     absolute inset-y-0
     left-0 pl-3 flex
     items-center pointer-events-none
-    text-foreground-light
+    text-scale-1100
     `,
   },
 

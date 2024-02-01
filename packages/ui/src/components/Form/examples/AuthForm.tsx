@@ -25,10 +25,12 @@ const DocsButton = () => {
   return (
     <button
       className="
-                bg-surface-100
-                border-default  
-                hover:border-strong  
-                group
+                bg-scale-300
+                dark:bg-scale-100
+                border-scale-500  
+                hover:border-scale-700  
+                dark:border-scale-300 
+                dark:hover:border-scale-500 group
                 my-6 flex
                 w-full items-center 
                 gap-6 
@@ -45,8 +47,8 @@ const DocsButton = () => {
           /> */}
       </div>
       <div className="grow">
-        <h3 className="text-foreground">Use authentication as the backbone of your app</h3>
-        <p className="text-foreground-muted text-xs">
+        <h3 className="text-scale-1200">Use authentication as the backbone of your app</h3>
+        <p className="text-scale-900 text-xs">
           Learn how to use Supabase Auth with Auth Policies to pick and choose what users see what.
         </p>
         <p className="text-brand mt-2 flex items-center gap-1 text-xs">
@@ -56,7 +58,7 @@ const DocsButton = () => {
           </span>
         </p>
       </div>
-      <div className="text-foreground-muted">
+      <div className="text-scale-900">
         <IconX />
       </div>
     </button>
@@ -76,10 +78,16 @@ const CardForm = () => {
   }) => (
     <div
       className="
-      bg-surface-100 
-      border-muted my-8 overflow-hidden rounded-md border shadow"
+      bg-scale-100 
+      dark:bg-scale-300 
+      
+      border-scale-400 my-8 overflow-hidden rounded-md border shadow"
     >
-      {header && <div className="bg-background border-muted border-b px-8 py-4">{header}</div>}
+      {header && (
+        <div className="bg-scale-100 dark:bg-scale-200 border-scale-400 border-b px-8 py-4">
+          {header}
+        </div>
+      )}
       <div className="space-y-6 py-6">{children}</div>
       {footer}
     </div>
@@ -112,7 +120,7 @@ const CardForm = () => {
             setSubmitting(false)
           }, 400)
         }}
-        validate={(values) => {
+        validate={(values: Values) => {
           const errors: any = {}
           if (!values.jwt_expiry) {
             errors.jwt_expiry = 'This is required'
@@ -128,7 +136,7 @@ const CardForm = () => {
           <Panel
             footer={
               <>
-                <div className="border-muted border-t"></div>
+                <div className="border-scale-400 border-t"></div>
                 <div className="flex justify-end gap-2 py-3 px-6">
                   <Button type="default" htmlType="reset" onClick={() => handleReset()}>
                     Cancel
@@ -146,7 +154,7 @@ const CardForm = () => {
             }
           >
             <Section
-              header={<label className="text-foreground col-span-4 text-sm">User Signups</label>}
+              header={<label className="text-scale-1200 col-span-4 text-sm">User Signups</label>}
             >
               <Toggle
                 id="enable_signups"
@@ -156,9 +164,9 @@ const CardForm = () => {
                 descriptionText="If this is disabled, new users will not be able to sign up to your application."
               />
             </Section>
-            <div className="border-muted border-t"></div>
+            <div className="border-scale-400 border-t"></div>
             <Section
-              header={<label className="text-foreground col-span-4 text-sm">User Sessions</label>}
+              header={<label className="text-scale-1200 col-span-4 text-sm">User Sessions</label>}
             >
               <InputNumber
                 className="col-span-8"
@@ -185,7 +193,7 @@ AuthFormSchema.map((provider) => {
 
 console.log('form initialState', initialState)
 
-function providersReducer(state: any, action: any) {
+function providersReducer(state, action) {
   switch (action.type) {
     case 'update':
       return Object.assign(state, action.values)
@@ -211,8 +219,12 @@ const AuthForm = () => {
     header?: React.ReactNode
     footer?: React.ReactNode
   }) => (
-    <div className="bg-surface-100 border-overlay mx-auto my-8 w-3/4 overflow-hidden rounded-md border shadow">
-      {header && <div className="bg-background border-overlay border-b px-8 py-4">{header}</div>}
+    <div className="bg-scale-300 border-scale-400 mx-auto my-8 w-3/4 overflow-hidden rounded-md border shadow">
+      {header && (
+        <div className="bg-scale-100 dark:bg-scale-200 border-scale-400 border-b px-8 py-4">
+          {header}
+        </div>
+      )}
       <div className="space-y-6 py-6">{children}</div>
       {footer}
     </div>
@@ -241,7 +253,7 @@ const AuthForm = () => {
     return (
       <div
         className="
-          bg-surface-200 border-default hover:border-strong hover:bg-overlay-hover mx-auto overflow-hidden
+          bg-scale-400 border-scale-500 hover:border-scale-700 hover:bg-scale-500 mx-auto overflow-hidden
           border shadow
           transition first:rounded-tr  
           first:rounded-tl
@@ -281,11 +293,12 @@ const AuthForm = () => {
         open={open}
         onOpenChange={setOpen}
         className="
-            bg-surface-100 
-            hover:bg-overlay-hover
-            data-open:bg-selection
-            border-default 
-            hover:border-strong data-open:border-strong
+            bg-scale-100 dark:bg-scale-300 
+            hover:bg-scale-200 dark:hover:bg-scale-500
+            data-open:bg-scale-200 dark:data-open:bg-scale-500 
+            border-scale-300 
+            dark:border-scale-500 hover:border-scale-500 
+            dark:hover:border-scale-700 data-open:border-scale-700
 
             data-open:pb-px col-span-12 mx-auto
             -space-y-px overflow-hidden
@@ -304,13 +317,13 @@ const AuthForm = () => {
             type="button"
             className="
               
-              text-foreground group 
+              text-scale-1200 group 
               flex 
               w-full items-center justify-between rounded p-3 px-6"
           >
             <div className="flex items-center gap-3">
               <IconChevronUp
-                className="text-border-stronger data-open-parent:rotate-0 data-closed-parent:rotate-180 transition"
+                className="text-scale-800 data-open-parent:rotate-0 data-closed-parent:rotate-180 transition"
                 strokeWidth={2}
               />
 
@@ -332,7 +345,7 @@ const AuthForm = () => {
                   <span className="px-1">Enabled</span>
                 </div>
               ) : (
-                <div className="bg-surface-100 border-strong text-foreground-muted rounded-md border py-1 px-3 text-xs">
+                <div className="bg-scale-100 dark:bg-scale-300 border-scale-500 dark:border-scale-700 text-scale-900 rounded-md border py-1 px-3 text-xs">
                   Disabled
                 </div>
               )}
@@ -390,8 +403,8 @@ const AuthForm = () => {
             <Collapsible.Content>
               <div
                 className="
-                  bg-surface-100
-                  text-foreground border-default group border-t py-6 px-6
+                  bg-scale-100 dark:bg-scale-300
+                  text-scale-1200 border-scale-500 group border-t py-6 px-6
                 "
               >
                 <div className="mx-auto max-w-md space-y-6">
@@ -401,7 +414,7 @@ const AuthForm = () => {
                     label={`Enable ${provider.name} Provider`}
                     layout="flex"
                   />
-                  <div className="border-muted border-t"></div>
+                  <div className="border-scale-400 border-t"></div>
                   {provider.form.map((x) => {
                     return (
                       <Input
@@ -414,7 +427,7 @@ const AuthForm = () => {
                       />
                     )
                   })}
-                  <div className="border-muted border-t"></div>
+                  <div className="border-scale-400 border-t"></div>
                   <div className="flex items-center justify-end gap-3">
                     <Button
                       htmlType="reset"
@@ -483,7 +496,7 @@ console.log('form domainInitialState', domainInitialState)
 //   }
 // }
 
-function domainsReducer(state: any, action: any) {
+function domainsReducer(state, action) {
   let _state = []
   switch (action.type) {
     case 'update':
@@ -537,11 +550,11 @@ const DomainsForm = () => {
       <>
         <div className="my-6 flex items-center justify-between">
           <div>
-            <h3 className="text-foreground mb-2 text-2xl">Authorised domains</h3>
-            <p className="text-foreground-muted text-sm">
+            <h3 className="text-scale-1200 mb-2 text-2xl">Authorised domains</h3>
+            <p className="text-scale-900 text-sm">
               Turn payment methods on and off in one click – no engineering time required.
             </p>
-            <p className="text-foreground-muted text-sm">
+            <p className="text-scale-900 text-sm">
               Use our guide to check which payment methods are compatible with your integration.
             </p>
           </div>
@@ -551,7 +564,7 @@ const DomainsForm = () => {
             visible={open}
             onCancel={() => setOpen(!open)}
             header={
-              <div className="text-foreground flex items-center gap-2">
+              <div className="text-scale-1200 flex items-center gap-2">
                 <div className="flex items-baseline gap-2">
                   <h3 className="text-sm">Add a new domain</h3>
                 </div>
@@ -594,7 +607,7 @@ const DomainsForm = () => {
                 return (
                   <div className="mb-4 space-y-4 pt-4">
                     <div className="px-5">
-                      <p className="text-foreground-light text-sm">
+                      <p className="text-scale-1100 text-sm">
                         This will add a domain to a list of allowed domains that can interact with
                         your Authentication services for this project.
                       </p>
@@ -640,7 +653,7 @@ const DomainsForm = () => {
           return (
             <>
               <div
-                className="bg-surface-100 border-default text-foreground flex items-center 
+                className="bg-scale-300 border-scale-500 text-scale-1200 flex items-center 
               justify-between gap-2
               border px-6 
               py-4 text-sm
@@ -648,7 +661,7 @@ const DomainsForm = () => {
             "
               >
                 <div className="flex items-center gap-2 font-mono">
-                  <span className="text-foreground-muted">
+                  <span className="text-scale-900">
                     <IconGlobe strokeWidth={2} size={14} />
                   </span>
                   {domain}
@@ -673,7 +686,7 @@ const DomainsForm = () => {
         visible={deleteOpen}
         onCancel={() => setDeleteOpen(!open)}
         header={
-          <div className="text-foreground flex items-center gap-2">
+          <div className="text-scale-1200 flex items-center gap-2">
             <div className="flex items-baseline gap-2">
               <h3 className="text-sm">Remove domain</h3>
             </div>
@@ -684,11 +697,11 @@ const DomainsForm = () => {
       >
         <div className="mb-4 space-y-4 pt-4">
           <div className="px-5">
-            <p className="text-foreground-light mb-2 text-sm">
+            <p className="text-scale-1100 mb-2 text-sm">
               Are you sure you want to remove{' '}
-              <span className="text-foreground">{selectedDomain}</span>?
+              <span className="text-scale-1200">{selectedDomain}</span>?
             </p>
-            <p className="text-foreground-muted text-sm">
+            <p className="text-scale-900 text-sm">
               This domain will no longer work with your Authentication configuration.
             </p>
           </div>
@@ -745,11 +758,16 @@ const SmtpForm = () => {
   }) => (
     <div
       className="
-      bg-surface-100
+      bg-scale-100 
+      dark:bg-scale-300 
       
-      border-muted my-8 overflow-hidden rounded-md border shadow"
+      border-scale-400 my-8 overflow-hidden rounded-md border shadow"
     >
-      {header && <div className="bg-background border-muted border-b px-8 py-4">{header}</div>}
+      {header && (
+        <div className="bg-scale-100 dark:bg-scale-200 border-scale-400 border-b px-8 py-4">
+          {header}
+        </div>
+      )}
       <div className="space-y-6 py-6">{children}</div>
       {footer}
     </div>
@@ -782,7 +800,7 @@ const SmtpForm = () => {
             setSubmitting(false)
           }, 400)
         }}
-        validate={(values) => {
+        validate={(values: Values) => {
           const errors: any = {}
           if (!values.jwt_expiry) {
             errors.jwt_expiry = 'This is required'
@@ -798,7 +816,7 @@ const SmtpForm = () => {
           <Panel
             footer={
               <>
-                <div className="border-muted border-t"></div>
+                <div className="border-scale-400 border-t"></div>
                 <div className="flex justify-end gap-2 py-3 px-6">
                   <Button
                     loading={isSubmitting}
@@ -822,7 +840,7 @@ const SmtpForm = () => {
           >
             {/* <Section
               header={
-                <label className="text-sm text-foreground col-span-4">
+                <label className="text-sm text-scale-1200 col-span-4">
                   Enable SMTP
                 </label>
               }
@@ -837,12 +855,12 @@ const SmtpForm = () => {
               descriptionText="If this is disabled, new users will not be able to sign up to your application."
             />
             {/* </Section> */}
-            <div className="border-muted border-t"></div>
+            <div className="border-scale-400 border-t"></div>
             <Section
               header={
                 <div className="w-full">
-                  <label className="text-foreground-light text-sm">SMTP details</label>
-                  <p className="text-foreground-muted text-sm">
+                  <label className="text-scale-1100 text-sm">SMTP details</label>
+                  <p className="text-scale-900 text-sm">
                     These settings can be found in your SMTP provider config
                   </p>
                 </div>
@@ -887,10 +905,15 @@ const TemplatesForm = () => {
   }) => (
     <div
       className="
-      bg-surface-100 
-      border-muted mb-8 overflow-hidden rounded-md border shadow"
+      bg-scale-100 
+      dark:bg-scale-300 
+      border-scale-400 mb-8 overflow-hidden rounded-md border shadow"
     >
-      {header && <div className="bg-background border-muted border-b px-8 py-4">{header}</div>}
+      {header && (
+        <div className="bg-scale-100 dark:bg-scale-200 border-scale-400 border-b px-8 py-4">
+          {header}
+        </div>
+      )}
       <div className="space-y-6 py-6">{children}</div>
       {footer}
     </div>
@@ -923,7 +946,7 @@ const TemplatesForm = () => {
             setSubmitting(false)
           }, 400)
         }}
-        validate={(values) => {
+        validate={(values: Values) => {
           const errors: any = {}
           if (!values.jwt_expiry) {
             errors.jwt_expiry = 'This is required'
@@ -954,7 +977,7 @@ const TemplatesForm = () => {
             <Panel
               footer={
                 <>
-                  <div className="border-muted border-t"></div>
+                  <div className="border-scale-400 border-t"></div>
                   <div className="flex justify-end gap-2 py-3 px-6">
                     <Button
                       loading={isSubmitting}
@@ -978,7 +1001,7 @@ const TemplatesForm = () => {
             >
               {/* <Section
               header={
-                <label className="text-sm text-foreground col-span-4">
+                <label className="text-sm text-scale-1200 col-span-4">
                   Enable SMTP
                 </label>
               }
@@ -993,12 +1016,12 @@ const TemplatesForm = () => {
               descriptionText="If this is disabled, new users will not be able to sign up to your application."
             /> */}
               {/* </Section> */}
-              {/* <div className="border-t border-muted"></div> */}
+              {/* <div className="border-t border-scale-400"></div> */}
               <Section
                 header={
                   <div className="w-full">
-                    <h3 className="text-foreground mb-4 text-base">Confirm Signup</h3>
-                    <p className="text-foreground-muted text-sm">
+                    <h3 className="text-scale-1200 mb-4 text-base">Confirm Signup</h3>
+                    <p className="text-scale-900 text-sm">
                       When a user signs up using an email address and password, you can send them a
                       confirmation email to verify their registered email address. Learn more
                     </p>
@@ -1042,25 +1065,25 @@ export function WholeForm() {
         <Tabs.Panel id="one" label="Sign-in method">
           <div className="animate-fade-in space-y-12 py-12">
             <div>
-              <h1 className="text-foreground text-3xl">Sign-in method</h1>
+              <h1 className="text-scale-1200 text-3xl">Sign-in method</h1>
             </div>
-            <div className="border-muted border-t"></div>
+            <div className="border-scale-400 border-t"></div>
             <div>
-              <h3 className="text-foreground mb-2 text-2xl">General settings</h3>
-              <p className="text-foreground-muted text-sm">
+              <h3 className="text-scale-1200 mb-2 text-2xl">General settings</h3>
+              <p className="text-scale-900 text-sm">
                 Turn payment methods on and off in one click – no engineering time required.
               </p>
-              <p className="text-foreground-muted text-sm">
+              <p className="text-scale-900 text-sm">
                 Use our guide to check which payment methods are compatible with your integration.
               </p>
               <CardForm />
             </div>
             <div>
-              <h3 className="text-foreground mb-2 text-2xl">Providers</h3>
-              <p className="text-foreground-muted text-sm">
+              <h3 className="text-scale-1200 mb-2 text-2xl">Providers</h3>
+              <p className="text-scale-900 text-sm">
                 Turn payment methods on and off in one click – no engineering time required.
               </p>
-              <p className="text-foreground-muted text-sm">
+              <p className="text-scale-900 text-sm">
                 Use our guide to check which payment methods are compatible with your integration.
               </p>
               <AuthForm />
@@ -1072,14 +1095,16 @@ export function WholeForm() {
         <Tabs.Panel id="two" label="Emails">
           <div className="animate-fade-in space-y-12 py-12">
             <div>
-              <h1 className="text-foreground text-3xl">Emails</h1>
+              <h1 className="text-scale-1200 text-3xl">Emails</h1>
             </div>
             <button
               className="
-                bg-surface-300
-                border-default  
-                hover:border-strong
-                group
+                bg-scale-300
+                dark:bg-scale-100
+                border-scale-500  
+                hover:border-scale-700  
+                dark:border-scale-300 
+                dark:hover:border-scale-500 group
                 my-6 flex
                 w-full items-center 
                 gap-6 
@@ -1096,8 +1121,8 @@ export function WholeForm() {
           /> */}
               </div>
               <div className="grow">
-                <h3 className="text-foreground">Use authentication as the backbone of your app</h3>
-                <p className="text-foreground-muted text-xs">
+                <h3 className="text-scale-1200">Use authentication as the backbone of your app</h3>
+                <p className="text-scale-900 text-xs">
                   Learn how to use Supabase Auth with Auth Policies to pick and choose what users
                   see what.
                 </p>
@@ -1108,21 +1133,21 @@ export function WholeForm() {
                   </span>
                 </p>
               </div>
-              <div className="text-foreground-muted">
+              <div className="text-scale-900">
                 <IconX />
               </div>
             </button>
-            <div className="border-muted border-t"></div>
+            <div className="border-scale-400 border-t"></div>
             <div>
-              <h3 className="text-foreground mb-2 text-2xl">Custom SMTP</h3>
-              <p className="text-foreground-muted text-sm">
+              <h3 className="text-scale-1200 mb-2 text-2xl">Custom SMTP</h3>
+              <p className="text-scale-900 text-sm">
                 You can use your own SMTP server instead of the built-in email service.
               </p>
               <SmtpForm />
             </div>
             <div>
-              <h3 className="text-foreground mb-2 text-2xl">Templates</h3>
-              <p className="text-foreground-muted text-sm">
+              <h3 className="text-scale-1200 mb-2 text-2xl">Templates</h3>
+              <p className="text-scale-900 text-sm">
                 You can use your own SMTP server instead of the built-in email service.
               </p>
               <TemplatesForm />

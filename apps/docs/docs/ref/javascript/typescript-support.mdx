@@ -1,15 +1,15 @@
 ---
 id: typescript-support
-title: TypeScript support
+title: TypeScript Support
 ---
 
 `supabase-js` has TypeScript support for type inference, autocompletion, type-safe queries, and more.
 
 With TypeScript, `supabase-js` detects things like `not null` constraints and [generated columns](https://www.postgresql.org/docs/current/ddl-generated-columns.html). Nullable columns are typed as `T | null` when you select the column. Generated columns will show a type error when you insert to it.
 
-`supabase-js` also detects relationships between tables. A referenced table with one-to-many relationship is typed as `T[]`. Likewise, a referenced table with many-to-one relationship is typed as `T | null`.
+`supabase-js` also detects relationships between tables. A foreign table with one-to-many relationship is typed as `T[]`. Likewise, a foreign table with many-to-one relationship is typed as `T | null`.
 
-## Generating TypeScript Types
+## Generating types
 
 <RefSubLayout.EducationRow>
   <RefSubLayout.Details>
@@ -73,7 +73,7 @@ With TypeScript, `supabase-js` detects things like `not null` constraints and [g
   </RefSubLayout.Examples>
 </RefSubLayout.EducationRow>
 
-## Using TypeScript type definitions
+## Using type definitions
 
 <RefSubLayout.EducationRow>
   <RefSubLayout.Details>
@@ -95,9 +95,9 @@ With TypeScript, `supabase-js` detects things like `not null` constraints and [g
   </RefSubLayout.Examples>
 </RefSubLayout.EducationRow>
 
-## Helper types for Tables and Joins
+## Helper types
 
-You can use the following helper types to make the generated TypeScript types easier to use.
+You can use the following helper types to make the TypeScript support easier to use.
 
 <RefSubLayout.EducationRow>
   <RefSubLayout.Details>
@@ -119,7 +119,6 @@ You can use the following helper types to make the generated TypeScript types ea
     import { Database as DatabaseGenerated } from './database-generated.types'
     export { Json } from './database-generated.types'
 
-    // Override the type for a specific column in a view:
     export type Database = MergeDeep<
       DatabaseGenerated,
       {
@@ -141,31 +140,19 @@ You can use the following helper types to make the generated TypeScript types ea
 </RefSubLayout.EducationRow>
 
 <RefSubLayout.EducationRow>
-<RefSubLayout.Details>
-
-You can also override the type of an individual successful response if needed:
-
-</RefSubLayout.Details>
-<RefSubLayout.Examples>
-
-```ts
-const { data } = await supabase.from('countries').select().returns<MyType>()
-```
-
-</RefSubLayout.Examples>
-</RefSubLayout.EducationRow>
-
-<RefSubLayout.EducationRow>
   <RefSubLayout.Details>
 
-    The generated types provide shorthands for accessing tables and enums.
+    It's convenient to have shorthands for your most-used types.
 
   </RefSubLayout.Details>
   <RefSubLayout.Examples>
+    ```ts ./database.types.ts
+    export type Tables<T extends keyof Database['public']['Tables']> = Database['public']['Tables'][T]['Row']
+    export type Enums<T extends keyof Database['public']['Enums']> = Database['public']['Enums'][T]
+    // etc.
+    ```
 
     ```ts ./index.ts
-    import { Database, Tables, Enums } from "./database.types.ts";
-
     // Before 😕
     let movie: Database['public']['Tables']['movies']['Row'] = // ...
 
@@ -176,51 +163,26 @@ const { data } = await supabase.from('countries').select().returns<MyType>()
   </RefSubLayout.Examples>
 </RefSubLayout.EducationRow>
 
-### Response types for complex queries
-
 <RefSubLayout.EducationRow>
   <RefSubLayout.Details>
 
     `supabase-js` always returns a `data` object (for success), and an `error` object (for unsuccessful requests).
 
-    These helper types provide the result types from any query, including nested types for database joins.
-
-    Given the following schema with a relation between cities and countries, we can get the nested `CountriesWithCities` type:
-
-    ```sql
-    create table countries (
-      "id" serial primary key,
-      "name" text
-    );
-
-    create table cities (
-      "id" serial primary key,
-      "name" text,
-      "country_id" int references "countries"
-    );
-    ```
+    These helper types provide the result types from any query:
 
   </RefSubLayout.Details>
   <RefSubLayout.Examples>
+    ```ts
+    import { PostgrestError } from '@supabase/supabase-js'
+
+    export type DbResult<T> = T extends PromiseLike<infer U> ? U : never
+    export type DbResultOk<T> = T extends PromiseLike<{ data: infer U }> ? Exclude<U, null> : never
+    export type DbResultErr = PostgrestError
+    ```
 
     ```ts
-    import { QueryResult, QueryData, QueryError } from '@supabase/supabase-js'
-
-    const countriesWithCitiesQuery = supabase
-      .from("countries")
-      .select(`
-        id,
-        name,
-        cities (
-          id,
-          name
-        )
-      `);
-    type CountriesWithCities = QueryData<typeof countriesWithCitiesQuery>;
-
-    const { data, error } = await countriesWithCitiesQuery;
-    if (error) throw error;
-    const countriesWithCities: CountriesWithCities = data;
+    const query = supabase.from('movies').select(`id, title`)
+    const movies: DbResult<typeof query> = await query
     ```
 
   </RefSubLayout.Examples>

@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { useEffect } from 'react'
 import { Accordion } from 'ui'
-import Lottie from 'lottie-light-react'
+import Lottie from 'lottie-react'
 
 import days, { WeekDayProps, endOfLW7 } from '~/components/LaunchWeek/7/lw7_days'
 import SectionContainer from '~/components/Layouts/SectionContainer'
@@ -332,7 +332,6 @@ export default function LW7Releases() {
                                 layout="fill"
                                 objectPosition={i === 2 && isTablet ? '50% 60%' : '80% 50%'}
                                 objectFit={i === 2 && isTablet ? 'contain' : 'cover'}
-                                alt=""
                               />
                             </motion.div>
                           )
@@ -384,7 +383,6 @@ export default function LW7Releases() {
                                 layout="fill"
                                 objectPosition="50% 50%"
                                 objectFit="cover"
-                                alt=""
                               />
                             </motion.div>
                           )
@@ -472,7 +470,6 @@ export default function LW7Releases() {
                                 }
                                 objectFit="cover"
                                 quality={100}
-                                alt=""
                               />
                             </motion.div>
                           )
@@ -508,7 +505,7 @@ export default function LW7Releases() {
                     animate="default"
                     whileHover="hover"
                   >
-                    <div className="flex items-center text-center lg:text-left justify-between flex-col-reverse lg:flex-row lg:justify-start gap-2 text-foreground">
+                    <div className="flex items-center text-center lg:text-left justify-between flex-col-reverse lg:flex-row lg:justify-start gap-2 text-black dark:text-white">
                       <CartTitle>{day2.steps[0].title}</CartTitle>
                       <StyledArticleBadge className="lg:ml-2">New</StyledArticleBadge>
                     </div>
@@ -560,7 +557,6 @@ export default function LW7Releases() {
                                 }
                                 objectFit="cover"
                                 quality={100}
-                                alt=""
                               />
                             </motion.div>
                           )
@@ -596,7 +592,7 @@ export default function LW7Releases() {
                     animate="default"
                     whileHover="hover"
                   >
-                    <div className="flex items-center text-center lg:text-left justify-between flex-col-reverse lg:flex-row lg:justify-start gap-2 text-foreground">
+                    <div className="flex items-center text-center lg:text-left justify-between flex-col-reverse lg:flex-row lg:justify-start gap-2 text-black dark:text-white">
                       <CartTitle>{day3.steps[0].title}</CartTitle>
                       <StyledArticleBadge className="lg:ml-2">Updated</StyledArticleBadge>
                     </div>
@@ -648,7 +644,6 @@ export default function LW7Releases() {
                                 }
                                 objectFit={!!layer.mobileImg && isTablet ? 'contain' : 'cover'}
                                 quality={100}
-                                alt=""
                               />
                             </motion.div>
                           )
@@ -684,7 +679,7 @@ export default function LW7Releases() {
                     animate="default"
                     whileHover="hover"
                   >
-                    <div className="flex items-center text-center lg:text-left justify-between flex-col-reverse lg:flex-row lg:justify-start gap-2 text-foreground">
+                    <div className="flex items-center text-center lg:text-left justify-between flex-col-reverse lg:flex-row lg:justify-start gap-2 text-black dark:text-white">
                       <CartTitle>{day4.steps[0].title}</CartTitle>
                       <StyledArticleBadge className="lg:ml-2">New</StyledArticleBadge>
                     </div>
@@ -734,7 +729,6 @@ export default function LW7Releases() {
                                 }
                                 objectFit="cover"
                                 quality={100}
-                                alt=""
                               />
                             </motion.div>
                           )

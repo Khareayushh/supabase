@@ -1,6 +1,8 @@
+import { serve } from 'std/server'
+
 const msg = new TextEncoder().encode('data: hello\r\n\r\n')
 
-Deno.serve((_) => {
+serve((_) => {
   let timerId: number | undefined
 
   const body = new ReadableStream({

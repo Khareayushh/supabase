@@ -1,7 +1,6 @@
-import { useTheme } from 'next-themes'
+import { useTheme } from 'common/Providers'
 import * as React from 'react'
 import Image from 'next/image'
-import { cn } from '../../lib/utils'
 
 interface Props {
   title: string
@@ -30,11 +29,11 @@ const GlassPanel = ({
   showLink = false,
   showIconBg = false,
 }: Props) => {
-  const { resolvedTheme } = useTheme()
-  const showLogoInverse = logoInverse && resolvedTheme?.includes('dark')
+  const { isDarkMode } = useTheme()
+  const showLogoInverse = logoInverse && isDarkMode
   const showLogo = !showLogoInverse && logo
 
-  const IconBackground: React.FC<React.PropsWithChildren> = (props) => (
+  const IconBackground: React.FC = (props) => (
     <div
       className={[
         'shrink-0',
@@ -53,8 +52,10 @@ const GlassPanel = ({
         <Image
           src={logoImage}
           alt={title}
-          fill
-          className={cn('object-contain object-left', className)}
+          layout="fill"
+          objectFit="contain"
+          objectPosition="left"
+          className={className}
         />
       </div>
     </div>
@@ -71,8 +72,8 @@ const GlassPanel = ({
         'border rounded-lg',
         'text-left',
         background
-          ? 'hover:border-strong bg-surface-100'
-          : 'border-muted hover:border-default bg-transparent',
+          ? 'border-scale-500 hover:border-scale-700 bg-white dark:bg-scale-300'
+          : 'border-scale-400 hover:border-scale-500 bg-transparent',
         'transition',
       ].join(' ')}
     >
@@ -105,18 +106,16 @@ const GlassPanel = ({
               <img
                 className="w-5"
                 alt={title}
-                src={`${icon}${
-                  hasLightIcon && !resolvedTheme?.includes('dark') ? '-light' : ''
-                }.svg`}
+                src={`${icon}${hasLightIcon && !isDarkMode ? '-light' : ''}.svg`}
               />
             </IconBackground>
           ) : (
             icon && <IconBackground>{icon}</IconBackground>
           )}
-          <p className="text-base text-foreground">{title}</p>
+          <p className="text-base text-scale-1200">{title}</p>
         </div>
 
-        {children && <span className="text-sm text-foreground-light flex-grow">{children}</span>}
+        {children && <span className="text-sm text-scale-1100 flex-grow">{children}</span>}
         {showLink && <span className="text-brand justify-end text-sm">Learn more</span>}
       </div>
     </div>

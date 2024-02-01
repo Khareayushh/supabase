@@ -3,6 +3,7 @@
 .git
 .github
 about
+apps
 docker
 examples
 i18n
@@ -13,7 +14,7 @@ tests
 
 **/.next
 .vercel
-**/.env.*
+.env.*
 
 .dockerignore
-apps/studio/Dockerfile
+studio/Dockerfile

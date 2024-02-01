@@ -3,7 +3,6 @@ import Link from 'next/link'
 import ProductIcon from '../ProductIcon'
 import Image from 'next/image'
 import styles from '~/styles/animations.module.css'
-import AnnouncementBadge from '../Announcement/Badge'
 
 interface Types {
   h1: string | React.ReactNode
@@ -13,12 +12,6 @@ interface Types {
   title?: string
   image?: string | React.ReactNode
   footer?: React.ReactNode
-  announcement?: {
-    url: string
-    announcement: string
-    badge?: string
-    target?: '_self' | '_blank' | string
-  }
   cta?: {
     label?: string
     link: string
@@ -33,7 +26,7 @@ interface Types {
 const ProductHeaderCentered = (props: Types) => (
   <div
     className={[
-      'container relative w-full mx-auto px-6 pt-2 pb-0 sm:px-16 xl:px-20',
+      'container relative w-full mx-auto px-6 pt-4 pb-0 sm:px-16 xl:px-20',
       props.className,
     ].join(' ')}
   >
@@ -46,7 +39,6 @@ const ProductHeaderCentered = (props: Types) => (
             layout="fill"
             objectFit="contain"
             objectPosition="top"
-            alt=""
           />
         </div>
       ) : (
@@ -54,13 +46,10 @@ const ProductHeaderCentered = (props: Types) => (
           {props.image}
         </div>
       )}
-      <div className="relative w-full z-10 flex flex-col items-center space-y-2 mx-auto max-w-2xl">
-        {props.announcement && (
-          <AnnouncementBadge {...props.announcement} className="pb-4 md:pb-8 z-10" />
-        )}
+      <div className="relative overflow-hidden w-full z-10 flex flex-col items-center space-y-2 mx-auto max-w-2xl">
         <div>
           {props.icon || props.title ? (
-            <div className="mb-2 flex justify-center items-center gap-3">
+            <div className="mb-4 flex justify-center items-center gap-3">
               {props.icon && <ProductIcon icon={props.icon} />}
               {props.title && (
                 <span
@@ -77,29 +66,35 @@ const ProductHeaderCentered = (props: Types) => (
           <h1 className="h1 text-3xl md:text-4xl xl:!text-5xl tracking-[-1.5px]" key={`h1`}>
             {props.h1}
           </h1>
-          <p className="p !text-foreground-light">{props.subheader}</p>
+          <p className="p !text-scale-1100">{props.subheader}</p>
         </div>
-        <div className="w-full sm:w-auto flex flex-col items-stretch sm:flex-row pt-2 sm:pt-8 sm:items-center gap-2">
+        <div className="flex flex-row md:flex-row pt-8 md:items-center">
           {props.cta && (
-            <Button size="medium" className="text-white" asChild>
-              <Link href={props.cta.link} as={props.cta.link}>
-                {props.cta.label ?? 'Start for free'}
-              </Link>
-            </Button>
+            <Link href={props.cta.link} as={props.cta.link}>
+              <a tabIndex={-1}>
+                <Button size="medium" className="text-white">
+                  {props.cta.label ?? 'Start for free'}
+                </Button>
+              </a>
+            </Link>
           )}
           {props.video && (
-            <Button type="default" size="medium" icon={<IconPlayCircle />} asChild>
-              <Link href={props.video} as={props.video}>
-                Watch video
-              </Link>
-            </Button>
+            <Link href={props.video} as={props.video}>
+              <a className="ml-2">
+                <Button type="default" size="medium" icon={<IconPlayCircle />}>
+                  Watch video
+                </Button>
+              </a>
+            </Link>
           )}
           {props.secondaryCta && (
-            <Button type="default" size="medium" asChild>
-              <Link href={props.secondaryCta.link} as={props.secondaryCta.link}>
-                {props.secondaryCta.label}
-              </Link>
-            </Button>
+            <Link href={props.secondaryCta.link} as={props.secondaryCta.link}>
+              <a className="ml-2 md:ml-3">
+                <Button type="default" size="medium">
+                  {props.secondaryCta.label}
+                </Button>
+              </a>
+            </Link>
           )}
         </div>
         {props.footer && <div className="mb-4">{props.footer}</div>}

@@ -10,9 +10,8 @@ export const meta = {
 ![Supabase User Management example](/docs/img/user-management-demo.png)
 
 <Admonition type="note">
-
-If you get stuck while working through this guide, refer to the [full example on GitHub](https://github.com/supabase/supabase/tree/master/examples/user-management/vue3-user-management).
-
+  If you get stuck while working through this guide, refer to the [full example on
+  GitHub](https://github.com/supabase/supabase/tree/master/examples/user-management/vue3-user-management).
 </Admonition>
 
 <ProjectSetup />
@@ -142,7 +141,7 @@ async function getProfile() {
     loading.value = true
     const { user } = session.value
 
-    const { data, error, status } = await supabase
+    let { data, error, status } = await supabase
       .from('profiles')
       .select(`username, website, avatar_url`)
       .eq('id', user.id)
@@ -175,7 +174,7 @@ async function updateProfile() {
       updated_at: new Date(),
     }
 
-    const { error } = await supabase.from('profiles').upsert(updates)
+    let { error } = await supabase.from('profiles').upsert(updates)
 
     if (error) throw error
   } catch (error) {
@@ -188,7 +187,7 @@ async function updateProfile() {
 async function signOut() {
   try {
     loading.value = true
-    const { error } = await supabase.auth.signOut()
+    let { error } = await supabase.auth.signOut()
     if (error) throw error
   } catch (error) {
     alert(error.message)
@@ -314,7 +313,7 @@ const uploadAvatar = async (evt) => {
     const fileExt = file.name.split('.').pop()
     const filePath = `${Math.random()}.${fileExt}`
 
-    const { error: uploadError } = await supabase.storage.from('avatars').upload(filePath, file)
+    let { error: uploadError } = await supabase.storage.from('avatars').upload(filePath, file)
 
     if (uploadError) throw uploadError
     emit('update:path', filePath)

@@ -11,7 +11,7 @@ const ConsentToast = ({ onAccept = noop, onOptOut = noop }: ConsentToastProps) =
   return (
     <div className="space-y-3 py-1">
       <div>
-        <p className="text-foreground">
+        <p className="text">
           We only collect analytics essential to ensuring smooth operation of our services.
         </p>
       </div>
@@ -22,11 +22,11 @@ const ConsentToast = ({ onAccept = noop, onOptOut = noop }: ConsentToastProps) =
         <Button type="text" onClick={onOptOut}>
           Opt out
         </Button>
-        <Button asChild type="text">
-          <Link target="_blank" rel="noreferrer" href="https://supabase.com/privacy">
-            Learn more
-          </Link>
-        </Button>
+        <Link passHref target="_blank" rel="noreferrer" href="https://supabase.com/privacy">
+          <Button asChild type="text">
+            <a>Learn more</a>
+          </Button>
+        </Link>
       </div>
     </div>
   )

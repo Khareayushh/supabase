@@ -1,8 +1,8 @@
-import { FC, PropsWithChildren, useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 // import createConfigCatClient from 'configcat-js'
 import FlagContext from './FlagContext'
 
-const FlagProvider: FC<PropsWithChildren<{}>> = ({ children }) => {
+const FlagProvider: FC = ({ children }) => {
   const [store, setStore] = useState({})
   const { Provider } = FlagContext
 
